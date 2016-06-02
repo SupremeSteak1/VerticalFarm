@@ -1,3 +1,8 @@
+package other;
+import engine.backend.GameObjectHandler;
+import engine.backend.Renderer;
+import engine.frontend.Renderable;
+
 import java.util.ArrayList;
 
 

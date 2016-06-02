@@ -1,8 +1,13 @@
+package engine.input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-
+/**
+ * 
+ * @author Thomas Hayden
+ * @version 6/02/16
+ */
 public class Keyboard implements KeyListener {
 	
 	private static ArrayList<Character> events;

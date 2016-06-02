@@ -1,5 +1,11 @@
+package engine.backend;
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author Thomas Hayden
+ * @version 6/02/16
+ */
 public class GameObjectHandler {
 	
 	private static ArrayList<GameObject> gameObjects;

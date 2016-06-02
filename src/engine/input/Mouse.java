@@ -1,11 +1,12 @@
+package engine.input;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 /**
  * This class handles mouse actions and allows for easier access to mouse events
- * @author Joshua
- *
+ * @author Josh Gordon
+ * @version 6/02/16
  */
 public class Mouse implements MouseListener{
 

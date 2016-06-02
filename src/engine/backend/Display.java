@@ -1,10 +1,18 @@
+package engine.backend;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import engine.frontend.Renderable;
+
 @SuppressWarnings("serial")
+/**
+ * 
+ * @author Thomas Hayden
+ * @version 6/02/16
+ */
 public class Display extends JPanel {
 	
 	private ArrayList<Renderable> renderQueue = new ArrayList<Renderable>();

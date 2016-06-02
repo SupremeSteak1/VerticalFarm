@@ -1,5 +1,10 @@
+package other;
 import java.util.ArrayList;
 import java.util.Random;
+
+import engine.frontend.Renderable;
+import engine.frontend.RenderableOval;
+import engine.input.Keyboard;
 
 
 public class UpdateHandler {
