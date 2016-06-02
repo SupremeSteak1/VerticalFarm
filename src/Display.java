@@ -4,10 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-<<<<<<< HEAD
 @SuppressWarnings("serial")
-=======
->>>>>>> d4e7b8e97cf4ce38a02777dc77c50c4e9766830e
 public class Display extends JPanel {
 	
 	private ArrayList<Renderable> renderQueue = new ArrayList<Renderable>();
