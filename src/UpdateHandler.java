@@ -5,6 +5,7 @@ import java.util.Random;
 public class UpdateHandler {
 	
 	private ArrayList<Renderable> renderQueue;
+<<<<<<< HEAD
 	@SuppressWarnings("unused")
 	private int x;
 	@SuppressWarnings("unused")
@@ -12,6 +13,12 @@ public class UpdateHandler {
 	
 	//Defecated 6/1/16
 	//For future reference, yes we know its deprecated.
+=======
+	private int x;
+	private int y;
+	
+	//Defecated 6/1/16
+>>>>>>> d4e7b8e97cf4ce38a02777dc77c50c4e9766830e
 	
 	public UpdateHandler() {
 		renderQueue = new ArrayList<Renderable>();

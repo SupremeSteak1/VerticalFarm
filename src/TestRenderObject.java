@@ -9,8 +9,12 @@ public class TestRenderObject implements GameObject  {
 	long time2 = 0;
 	public ArrayList<Renderable> render() {
 		ArrayList<Renderable> list = new ArrayList<Renderable>();
+<<<<<<< HEAD
 		//TODO: Change this out when working on a different computer
 		list.add(new RenderableImage("res/kimoon.jpg",0,0));
+=======
+		list.add(new RenderableImage("C:/Users/17haydent/Desktop/test.png",0,0));
+>>>>>>> d4e7b8e97cf4ce38a02777dc77c50c4e9766830e
 		if(System.currentTimeMillis()-1000>time2) {
 			System.out.println("FPS:"+a2);
 			time2 = System.currentTimeMillis();

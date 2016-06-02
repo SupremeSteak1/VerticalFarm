@@ -5,7 +5,10 @@ public class Main {
 	
 	private static boolean running;
 	
+<<<<<<< HEAD
 	@SuppressWarnings({ "static-access", "unused" })
+=======
+>>>>>>> d4e7b8e97cf4ce38a02777dc77c50c4e9766830e
 	public static void main(String[] args) {
 		running = true;
 		Renderer r = new Renderer();

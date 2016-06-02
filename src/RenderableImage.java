@@ -30,10 +30,13 @@ public class RenderableImage implements Renderable {
 		}
 	}
 	
+<<<<<<< HEAD
 	public String getFilePath(){
 		return filePath;
 	}
 	
+=======
+>>>>>>> d4e7b8e97cf4ce38a02777dc77c50c4e9766830e
 	public void render(Graphics2D g2d) {
 		g2d.drawImage(image, x, y, null);
 	}
