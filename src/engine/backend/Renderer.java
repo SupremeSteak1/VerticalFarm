@@ -18,8 +18,10 @@ public class Renderer extends JFrame {
 	
 	private Display display;
 	private ArrayList<Renderable> queue;
+	private int level;
 	
-	public Renderer() {
+	public Renderer(int level) {
+		this.level = level;
 		addKeyListener(new Keyboard());
 		addMouseListener(new Mouse());
 		display = new Display();
@@ -34,7 +36,8 @@ public class Renderer extends JFrame {
 	 * @param newRenderQueue the new render queue
 	 */
 	public void setQueue(ArrayList<Renderable> newRenderQueue) {
-		queue = newRenderQueue;
+		queue = new ArrayList<Renderable>();
+		addToQueue(newRenderQueue);
 	}
 	
 	/**
@@ -42,7 +45,10 @@ public class Renderer extends JFrame {
 	 * @param a a list of Renderables to add to the current queue
 	 */
 	public void addToQueue(ArrayList<Renderable> a) {
-		queue.addAll(a);
+		for(Renderable r : a) {
+			if(r.getLevel()==level)
+				queue.add(r);
+		}
 	}
 	
 	/**

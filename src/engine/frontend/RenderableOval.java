@@ -12,6 +12,7 @@ public class RenderableOval implements Renderable {
 	private int y;
 	private int width;
 	private int height;
+	private int level;
 	
 	/**
 	 * A RenderableOval is a class which will render an oval to the screen
@@ -20,11 +21,12 @@ public class RenderableOval implements Renderable {
 	 * @param width the width of the oval
 	 * @param height the height of the oval
 	 */
-	public RenderableOval(int x, int y, int width, int height) {
+	public RenderableOval(int x, int y, int width, int height, int level) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.level = level;
 	}
 	
 	/**
@@ -32,5 +34,9 @@ public class RenderableOval implements Renderable {
 	 */
 	public void render(Graphics2D g2d) {
 		g2d.drawOval(x, y, width, height);
+	}
+	
+	public int getLevel() {
+		return level;
 	}
 }

@@ -18,6 +18,10 @@ public class GameObjectHandler {
 		gameObjects.add(go);
 	}
 	
+	public static void clearGameObjects() {
+		gameObjects = new ArrayList<GameObject>();
+	}
+	
 	public static void updateGameObjects() {
 		for(GameObject go : gameObjects) {
 			try {

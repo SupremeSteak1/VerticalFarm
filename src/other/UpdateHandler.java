@@ -42,7 +42,7 @@ public class UpdateHandler {
 		
 		Random rand = new Random();
 		for(int i = 0; i < 50; i++){
-			renderQueue.add(new RenderableOval(rand.nextInt(800),rand.nextInt(600), rand.nextInt(50),rand.nextInt(60)));			
+			renderQueue.add(new RenderableOval(rand.nextInt(800),rand.nextInt(600), rand.nextInt(50),rand.nextInt(60),1));			
 		}
 		//renderQueue.add(new RenderableImage("C:\\Users\\17haydent\\Desktop\\test2.png",x,y));
 		return renderQueue;
