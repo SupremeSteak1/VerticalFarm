@@ -20,11 +20,11 @@ public class Plant {
 	/* indices yo
 	 * 0 = PlantID
 	 * 1 = Plant Name
-	 * 2 = Water Needed
-	 * 3 = Fertilizer Needed
-	 * 4 = Number of Growth Stages
-	 * 5 = Base Buy Price
-	 * 6 = Base Sell Price
+	 * 2 = Growth Stage Number
+	 * 3 = Buy price
+	 * 4 = Sell price
+	 * 5 = Description
+	 * 6 = Image file path
 	 */
 	
 	public Plant() {
@@ -61,6 +61,14 @@ public class Plant {
 	
 	public void setTile(Tile t){
 		this.tile = t;
+	}
+	
+	public int getBuyPrice(){
+		return Integer.parseInt(this.attributes.get(3));
+	}
+	
+	public int getSellPrice(){
+		return Integer.parseInt(this.attributes.get(4));
 	}
 	
 	public void upgrade(){
