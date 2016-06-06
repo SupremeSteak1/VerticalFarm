@@ -39,6 +39,7 @@ public class Main {
 		GameObjectHandler goh = new GameObjectHandler();
 		Farm farm = new Farm();
 		goh.registerGameObject(farm);
+		goh.registerGameObject(farm.getInfoPanel());
 		while(true) {
 			r.setQueue(new ArrayList<Renderable>());
 			goh.updateGameObjects();

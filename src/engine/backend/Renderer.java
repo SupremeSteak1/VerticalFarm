@@ -27,7 +27,8 @@ public class Renderer extends JFrame {
 		display = new Display();
 		add(display);
 		setSize(windowWidth, windowHeight);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setResizable(false);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		queue = new ArrayList<Renderable>();
 	}
 	

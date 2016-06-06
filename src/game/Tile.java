@@ -1,19 +1,23 @@
 package game;
 
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
+import other.Farm;
+import engine.backend.GameObjectHandler;
 import engine.frontend.Renderable;
 import engine.frontend.RenderableImage;
 
 public class Tile implements Renderable {
 	
-	private Plant plant;
+	private Plant plant = new Plant();
 	
 	private ArrayList<Resource> resources;
+	
+	private String imagePath = "res/PlontTile.png";
 	
 	private int x;
 	private int y;
@@ -23,6 +27,16 @@ public class Tile implements Renderable {
 	public Tile(int x, int y) {
 		this.x = x;
 		this.y = y;
+	}
+	
+	public Tile(int x, int y, Plant p) {
+		this.x = x;
+		this.y = y;
+		setPlant(new File("res/plants.txt"),17);
+	}
+	
+	public String getImagePath() {
+		return imagePath;
 	}
 	
 	public void update() {
@@ -55,6 +69,40 @@ public class Tile implements Renderable {
 		plant.setTile(this);
 	}
 	
+	public void setPlant(File file, int plantID) {
+		//Attributes:
+		/*
+		* 0 = PlantID
+		* 1 = Plant Name
+		* 2 = Water Needed
+		* 3 = Fertilizer Needed
+		* 4 = Number of Growth Stages
+		* 5 = Base Buy Price
+		* 6 = Base Sell Price
+		*/
+		try {
+			Scanner scan = new Scanner(file);
+			boolean searching = true;
+			String[] line = new String[8];
+			while(searching && scan.hasNextLine()) {
+				line = scan.nextLine().split(";");
+				if(line[0].equals(plantID))
+					searching = false;
+			}
+			ArrayList<String> attributes = new ArrayList<String>();
+			for(int i = 0; i < line.length-2; i++) {
+				if(i!=2) {
+					attributes.add(line[i]);
+				} else {
+					
+				}
+			}
+			plant = new Plant(line[line.length-1],attributes);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Gets the current plant on this tile. Returns null if no plant.
 	 * @return the plant on this tile
@@ -73,6 +121,9 @@ public class Tile implements Renderable {
 	
 	public void onClick() {
 		System.out.println(this.x + " " + this.y);
+		Farm.getInfoPanel().setTile(this);
+		//InfoPanel panel = new InfoPanel(this);
+		//GameObjectHandler.registerGameObject(panel);
 	}
 	
 	/**
@@ -86,7 +137,10 @@ public class Tile implements Renderable {
 
 	@Override
 	public void render(Graphics2D g2d) {
-		new RenderableImage("res/PlontTile.png", x*IMAGE_WIDTH, y*IMAGE_HEIGHT, getLevel()).render(g2d);;
+		new RenderableImage("res/PlontTile.png", x*IMAGE_WIDTH, y*IMAGE_HEIGHT, getLevel()).render(g2d);
+		if(plant!=null) {
+			new RenderableImage(plant.getImagePath(), x*IMAGE_WIDTH, y*IMAGE_HEIGHT, getLevel()).render(g2d);
+		}
 	}
 
 	@Override

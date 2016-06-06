@@ -1,5 +1,6 @@
 package engine.backend;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 /**
  * 
@@ -23,13 +24,17 @@ public class GameObjectHandler {
 	}
 	
 	public static void updateGameObjects() {
-		for(GameObject go : gameObjects) {
-			try {
-				go.update();
-			} catch(Exception e) {
-				System.out.println("From updateGameObjects()");
-				e.printStackTrace();
+		try {
+			for(GameObject go : gameObjects) {
+				try {
+					go.update();
+				} catch(Exception e) {
+					System.out.println("From updateGameObjects()");
+					e.printStackTrace();
+				}
 			}
+		} catch(ConcurrentModificationException e) {
+			System.out.println("HA");
 		}
 	}
 	

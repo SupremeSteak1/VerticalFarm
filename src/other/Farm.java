@@ -1,12 +1,15 @@
 package other;
 
-import engine.backend.GameObject;
-import engine.frontend.Renderable;
-import engine.input.Mouse;
-import game.Tile;
-
 import java.awt.Point;
 import java.util.ArrayList;
+
+import engine.backend.GameObject;
+import engine.backend.GameObjectHandler;
+import engine.frontend.Renderable;
+import engine.input.Mouse;
+import game.InfoPanel;
+import game.Plant;
+import game.Tile;
 
 public class Farm implements GameObject{
 
@@ -17,15 +20,23 @@ public class Farm implements GameObject{
 	private int currentFloor;
 	
 	private final long CLICK_DELAY = 100;
+	private Point lastClick;
+	
+	private static InfoPanel panel;
 	
 	public Farm() {
+		panel = new InfoPanel(new Tile(0,0));
 		tiles = new Tile[FLOOR_SIZE][FLOOR_SIZE];
 		currentFloor = 0;
 		for(int x = 0; x < FLOOR_SIZE; x++) {
 			for(int y = 0; y < FLOOR_SIZE; y++) {
 				tiles[x][y] = new Tile(x,y);
+				if(x==2) {
+					tiles[x][y] = new Tile(x,y,new Plant("res/TestPlont.png"));
+				}
 			}
 		}
+		lastClick = new Point(0,0);
 	}
 
 	public ArrayList<Renderable> render() {
@@ -39,12 +50,12 @@ public class Farm implements GameObject{
 	}
 
 	public void update() {
-		long lastClickTime = Mouse.getLastClickTime();
-		Point lastClickPlace = Mouse.getRecentClickLocationOnScreen();
-		//if(lastClickTime+CLICK_DELAY>System.currentTimeMillis())
-		//	System.out.println(lastClickPlace.toString());
-		if(lastClickPlace.x != 0 && lastClickPlace.y != 0) {
-			tiles[lastClickPlace.x / 128][lastClickPlace.y / 128].onClick();
+		Point click = handleClick();
+		if(click.x <= 640 && click.y <= 640 && click.x >= 0 && click.y >= 0) {
+			tiles[click.x/128][click.y/128].onClick();
+			lastClick = click;
+		} else {
+			tiles[lastClick.x/128][lastClick.y/128].onClick();
 		}
 		for(Tile[] a : tiles){
 			for(Tile t : a){
@@ -53,6 +64,18 @@ public class Farm implements GameObject{
 		}
 	}
 	
+	public Point handleClick() {
+		long lastClickTime = Mouse.getLastClickTime();
+		Point lastClickPlace = Mouse.getRecentClickLocationOnScreen();
+		//if(lastClickTime+CLICK_DELAY>System.currentTimeMillis())
+		//	System.out.println(lastClickPlace.toString());
+		if(lastClickPlace.x != 0 && lastClickPlace.y != 0) {
+			return new Point(lastClickPlace.x, lastClickPlace.y);
+		}
+		return new Point(-1,-1);
+	}
 	
-	
+	public static InfoPanel getInfoPanel() {
+		return panel;
+	}
 }
