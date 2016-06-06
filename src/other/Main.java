@@ -1,16 +1,16 @@
 package other;
+import java.util.ArrayList;
+
 import engine.backend.GameObjectHandler;
 import engine.backend.Renderer;
 import engine.frontend.Renderable;
-import engine.input.Keyboard;
-
-import java.util.ArrayList;
 
 
 public class Main {
 	
 	private static boolean running;
 	
+	/*
 	@SuppressWarnings("static-access")
 	public static void main(String[] args) {
 		running = true;
@@ -30,6 +30,20 @@ public class Main {
 			goh.renderGameObjects(mainMenu);
 			control(r);
 			control(mainMenu);
+		}
+	}
+	*/
+	
+	public static void main(String[] args) {
+		Renderer r = new Renderer(1, 1000, 700);
+		GameObjectHandler goh = new GameObjectHandler();
+		Farm farm = new Farm();
+		goh.registerGameObject(farm);
+		while(true) {
+			r.setQueue(new ArrayList<Renderable>());
+			goh.updateGameObjects();
+			goh.renderGameObjects(r);
+			control(r);
 		}
 	}
 	

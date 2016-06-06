@@ -20,13 +20,13 @@ public class Renderer extends JFrame {
 	private ArrayList<Renderable> queue;
 	private int level;
 	
-	public Renderer(int level) {
+	public Renderer(int level, int windowWidth, int windowHeight) {
 		this.level = level;
 		addKeyListener(new Keyboard());
 		addMouseListener(new Mouse());
 		display = new Display();
 		add(display);
-		setSize(600, 800);
+		setSize(windowWidth, windowHeight);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		queue = new ArrayList<Renderable>();
 	}

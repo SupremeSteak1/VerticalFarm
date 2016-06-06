@@ -31,10 +31,9 @@ public class Mouse implements MouseListener{
 	
 	public void mouseClicked(MouseEvent e) {
 		
-		recentClick = e.getPoint();
-		recentClickTime = System.currentTimeMillis();
 		
-		System.out.println("Click at " + recentClick.toString());
+		
+		//System.out.println("Click at " + recentClick.toString());
 		
 	}
 
@@ -47,11 +46,13 @@ public class Mouse implements MouseListener{
 	}
 
 	public void mousePressed(MouseEvent e) {
-		
+		recentClick = e.getPoint();
+		recentClickTime = System.currentTimeMillis();
 	}
 
 	public void mouseReleased(MouseEvent e) {
-		
+		recentClick = new Point(0,0);
+		recentClickTime = 0;
 	}
 
 }

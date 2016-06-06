@@ -1,14 +1,31 @@
 package game;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 
-public class Tile {
+import engine.frontend.Renderable;
+import engine.frontend.RenderableImage;
+
+public class Tile implements Renderable {
 	
 	private Plant plant;
 	
 	private ArrayList<Resource> resources;
 	
-	public Tile() {
+	private int x;
+	private int y;
+	private final int IMAGE_HEIGHT = 128;
+	private final int IMAGE_WIDTH = 128;
+	
+	public Tile(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
+	public void update() {
 		
 	}
 	
@@ -35,6 +52,7 @@ public class Tile {
 	 */
 	public void setPlant(Plant plant) {
 		this.plant = plant;
+		plant.setTile(this);
 	}
 	
 	/**
@@ -53,6 +71,10 @@ public class Tile {
 		return plant==null;
 	}
 	
+	public void onClick() {
+		System.out.println(this.x + " " + this.y);
+	}
+	
 	/**
 	 * Returns if the plant can grow with the current resources or not
 	 * @return if the plant can grow
@@ -60,6 +82,16 @@ public class Tile {
 	public boolean canPlantGrow(){
 		if(isEmpty()) return false;
 		return true; //TODO: Fix
+	}
+
+	@Override
+	public void render(Graphics2D g2d) {
+		new RenderableImage("res/PlontTile.png", x*IMAGE_WIDTH, y*IMAGE_HEIGHT, getLevel()).render(g2d);;
+	}
+
+	@Override
+	public int getLevel() {
+		return 1;
 	}
 	
 }
