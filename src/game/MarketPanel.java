@@ -24,7 +24,7 @@ public class MarketPanel implements GameObject{
 	private final int WATER_COST = 10;
 	private final int FERTILIZER_COST = 15;
 	
-	private Plant trendingPlant;
+	private Plant trendingPlant = new Plant();
 	/*
 	 * 0 = water
 	 * 1 = fertilizer
@@ -34,7 +34,7 @@ public class MarketPanel implements GameObject{
 	public MarketPanel(Farm farm){
 		this.farm = farm;
 		
-		trendingPlant = new Plant();
+		//Removed plant constructor
 		money = 100;
 		
 		resources = new ArrayList<>();
@@ -77,7 +77,11 @@ public class MarketPanel implements GameObject{
 		return resources;
 	}
 	
-	public int /* fuck bitches */ getMoney(){
+	/**
+	 * Returns the money that
+	 * @return
+	 */
+	public int getMoney(){
 		return money;
 	}
 	

@@ -22,11 +22,13 @@ public class InfoPanel implements GameObject {
 		RenderableImage tileRender = new RenderableImage(tile.getImagePath(), 655, 356, 1);
 		RenderableImage plantRender = new RenderableImage(tile.getPlant().getImagePath(), 655, 356, 1);
 		RenderableText name = new RenderableText(tile.getPlant().getAttributes().get(1), 660, 48);
+		RenderableText description = new RenderableText(tile.getPlant().getDescription(), 658, 353);
 		ArrayList<Renderable> toRender = new ArrayList<Renderable>();
 		toRender.add(image);
 		toRender.add(tileRender);
 		toRender.add(plantRender);
 		toRender.add(name);
+		toRender.add(description);
 		return toRender;
 	}
 	

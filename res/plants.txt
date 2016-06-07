@@ -1,2 +1,2 @@
 17;Gusberries;honk;5;10;1500;honk honk delete photograph;res/TestPlont.png
-17;Gusberries;honk;5;10;1500;honk honk delete photograph;res/TestPlont.png
+18;Lucky's Mealworms;water,5:fert,2;5;15;1;Is this even a plant?;res/TestPlant.png

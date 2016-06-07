@@ -32,7 +32,7 @@ public class Tile implements Renderable {
 	public Tile(int x, int y, Plant p) {
 		this.x = x;
 		this.y = y;
-		setPlant(17);
+		setPlant(p);
 		hasResources =false;
 	}
 	

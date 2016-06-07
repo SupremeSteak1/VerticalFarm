@@ -33,8 +33,15 @@ public class Farm implements GameObject{
 		for(int x = 0; x < FLOOR_SIZE; x++) {
 			for(int y = 0; y < FLOOR_SIZE; y++) {
 				tiles[x][y] = new Tile(x,y);
-				if(x==2) {
-					tiles[x][y] = new Tile(x,y,new Plant("res/TestPlont.png"));
+				switch(x) {
+				case 1:
+					System.out.println("Tile (" + x + ", " + y + ") assigned with id 17");
+					tiles[x][y] = new Tile(x,y,Plant.loadPlant(17));
+					break;
+				case 2:
+					System.out.println("Tile (" + x + ", " + y + ") assigned with id 18");
+					tiles[x][y] = new Tile(x,y,Plant.loadPlant(18));
+					break;
 				}
 			}
 		}

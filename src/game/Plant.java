@@ -12,27 +12,32 @@ public class Plant {
 	private int upgradeLevel;
 	private int growthLevel;
 	
-	private static File file; //Where the plants are stored
+	private static File file = new File("res/plants.txt"); //Where the plants are stored
 	
 	private Tile tile;
 	
 	private String imagePath = "res/TestPlant.png";
 	
-	//Attributes:
-	/* indices yo
+	/* Attributes:
 	 * 0 = PlantID
 	 * 1 = Plant Name
-	 * 2 = Growth Stage Number
-	 * 3 = Buy price
-	 * 4 = Sell price
+	 * 2 = Growth Stage Count
+	 * 3 = Buy Base Price
+	 * 4 = Sell Base Price
 	 * 5 = Description
-	 * 6 = Image file path
+	 * 6 = Image File Path
 	 */
+	
 	
 	public Plant() {
 		attributes = new ArrayList<String>();
 		attributes.add("0");
 		attributes.add("Test plont");
+		attributes.add("0");
+		attributes.add("0");
+		attributes.add("0");
+		attributes.add("0");
+		attributes.add("0");
 		neededResources = new ArrayList<Resource>();
 		upgradeLevel = 0;
 		growthLevel = 0;
@@ -44,20 +49,32 @@ public class Plant {
 		attributes = new ArrayList<String>();
 		attributes.add("0");
 		attributes.add("Test plont");
+		attributes.add("0");
+		attributes.add("0");
+		attributes.add("0");
+		attributes.add("0");
+		attributes.add("0");
 		neededResources = new ArrayList<Resource>();
 		upgradeLevel = 0;
 		growthLevel = 0;
 		file = new File("res/plants.txt");
 	}
 	
+	
 	public Plant(String imagePath, ArrayList<String> attributes) {
 		this.imagePath = imagePath;
 		this.attributes = new ArrayList<String>();
+		String resources = attributes.remove(2);
 		this.attributes.addAll(attributes);
 		neededResources = new ArrayList<Resource>();
+		String[] resourcePairs = resources.split(":");
+		for(String s : resourcePairs) {
+			if(s.split(",")[0].equals("water")) {
+				//Add water resource to arraylist
+			}
+		}
 		upgradeLevel = 0;
 		growthLevel = 0;
-		file = new File("res/plants.txt");
 	}
 	
 	public static Plant loadPlant(int plantID){
@@ -66,23 +83,28 @@ public class Plant {
 			Scanner scan = new Scanner(file);
 			boolean searching = true;
 			String[] line = new String[8];
-			while(searching && scan.hasNextLine()) {
+			while(searching) {
 				line = scan.nextLine().split(";");
-				if(line[0].equals(plantID))
+				System.out.println(line[0] + " AND " + plantID);
+				if(line[0].equals(""+plantID)) {
+					System.out.println("MATCH");
 					searching = false;
+				}
 			}
 			ArrayList<String> attributes = new ArrayList<String>();
-			for(int i = 0; i < line.length-2; i++) {
+			for(int i = 0; i < line.length; i++) {
 				if(i!=2) {
 					attributes.add(line[i]);
 				} else {
 					
 				}
 			}
+			System.out.println(attributes.get(1));
 			plant = new Plant(line[line.length-1],attributes);
 			return plant;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			System.exit(1);
 		}
 		return null;
 	}
@@ -137,5 +159,9 @@ public class Plant {
 	
 	public ArrayList<String> getAttributes() {
 		return attributes;
+	}
+	
+	public String getDescription() {
+		return attributes.get(5);
 	}
 }
