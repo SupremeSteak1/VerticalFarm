@@ -7,12 +7,17 @@ import engine.backend.GameObject;
 import engine.frontend.Renderable;
 import engine.frontend.RenderableImage;
 import engine.frontend.RenderableText;
+import other.Farm;
 
 public class MarketPanel implements GameObject{
 
 	private ArrayList<Integer> resourceCosts;
 	
+	private ArrayList<Resource> resources;
+	
 	private ArrayList<Plant> recentlySold;
+	
+	private Farm farm;
 	
 	private String imagePath;
 	
@@ -26,9 +31,13 @@ public class MarketPanel implements GameObject{
 	 */
 	private int money;
 	
-	public MarketPanel(){
+	public MarketPanel(Farm farm){
+		this.farm = farm;
+		
 		trendingPlant = new Plant();
 		money = 100;
+		
+		resources = new ArrayList<>();
 		
 		resourceCosts = new ArrayList<>();
 		resourceCosts.add(WATER_COST);
@@ -37,6 +46,35 @@ public class MarketPanel implements GameObject{
 		imagePath = "res/MarketPanelImage.png";
 		
 		recentlySold = new ArrayList<>();
+	}
+	
+	public boolean[][] distributeResources(){
+		boolean[][] distributed = new boolean[farm.getTiles().length][farm.getTiles()[0].length];
+		int x = 0;
+		int y = 0;
+		for(Tile[] a : farm.getTiles()){
+			for(Tile t : a){
+				ArrayList<Resource> required = t.getPlant().getNeededResources();
+				for(Resource r : required){
+					for(Resource b : resources){
+						if(b.getType().equals(r.getType()) && b.getAmount() >= r.getAmount()){
+							b.removeResource(r.getAmount());
+							distributed[x][y] = true;
+						}else{
+							distributed[x][y] = false;
+						}
+						
+					}
+				}
+				y++;
+			}
+			x++;
+		}
+		return distributed;
+	}
+	
+	public ArrayList<Resource> getResources(){
+		return resources;
 	}
 	
 	public int /* fuck bitches */ getMoney(){

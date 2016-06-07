@@ -1,15 +1,36 @@
 package game;
 
-public abstract class Resource {
+public class Resource {
 
-	public abstract double getCount();
-	public abstract void setCount(double count);
+	private resourceTypes type;
+	private int amount;
 	
-	public enum resourceType{
+	
+	public Resource(resourceTypes type, int amount){
+		this.type = type;
+		this.amount = amount;
+	}
+	
+	public enum resourceTypes{
 		NOT_SET,
 		WATER,
-		SOIL,
-		ELECTRICTY
+		FERTILIZER
+	}
+
+	public resourceTypes getType() {
+		return type;
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+	
+	public void addResource(int a){
+		amount+=a;
+	}
+	
+	public void removeResource(int a){
+		amount-=a;
 	}
 	
 }

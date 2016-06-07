@@ -95,6 +95,10 @@ public class Plant {
 		return attributes.get(1);
 	}
 	
+	public ArrayList<Resource> getNeededResources(){
+		return neededResources;
+	}
+	
 	public void setTile(Tile t){
 		this.tile = t;
 	}
@@ -109,9 +113,9 @@ public class Plant {
 	
 	public void upgrade(){
 		this.upgradeLevel++;
-		attributes.set(2, attributes.get(2) + Math.log(Double.parseDouble(attributes.get(2)) + 2));
-		attributes.set(3, attributes.get(3) + Math.log(Double.parseDouble(attributes.get(3)) + 2));
-		attributes.set(6, attributes.get(6) + Math.log(Double.parseDouble(attributes.get(6)) + 2));
+		attributes.set(3, attributes.get(2) + Math.log(Double.parseDouble(attributes.get(2)) + 2));
+		attributes.set(4, attributes.get(3) + Math.log(Double.parseDouble(attributes.get(3)) + 2));
+		//attributes.set(6, attributes.get(6) + Math.log(Double.parseDouble(attributes.get(6)) + 2));
 	}
 	
 	public int getUpgradeLevel() {
@@ -123,6 +127,7 @@ public class Plant {
 	}
 	
 	public void grow(){
+		if(growthLevel>=Integer.parseInt(attributes.get(2)))
 		growthLevel++;
 	}
 	

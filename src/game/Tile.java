@@ -1,15 +1,12 @@
 package game;
 
 import java.awt.Graphics2D;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Random;
 
-import other.Farm;
-import engine.backend.GameObjectHandler;
 import engine.frontend.Renderable;
 import engine.frontend.RenderableImage;
+import other.Farm;
 
 public class Tile implements Renderable {
 	
@@ -19,6 +16,8 @@ public class Tile implements Renderable {
 	
 	private String imagePath = "res/PlontTile.png";
 	
+	private boolean hasResources;
+	
 	private int x;
 	private int y;
 	private final int IMAGE_HEIGHT = 128;
@@ -27,12 +26,14 @@ public class Tile implements Renderable {
 	public Tile(int x, int y) {
 		this.x = x;
 		this.y = y;
+		hasResources = false;
 	}
 	
 	public Tile(int x, int y, Plant p) {
 		this.x = x;
 		this.y = y;
 		setPlant(17);
+		hasResources =false;
 	}
 	
 	public String getImagePath() {
@@ -40,7 +41,17 @@ public class Tile implements Renderable {
 	}
 	
 	public void update() {
-		
+		if(hasResources){
+			int randomTemp = new Random().nextInt(50);
+			if(randomTemp == 42){
+				//TODO: Maybe have each plant have a growth speed that affects this
+				plant.grow();
+			}
+		}
+	}
+	
+	public void setHasResources(boolean value){
+		hasResources = value;
 	}
 	
 	/**

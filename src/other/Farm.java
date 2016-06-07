@@ -27,7 +27,7 @@ public class Farm implements GameObject{
 	
 	public Farm() {
 		panel = new InfoPanel(new Tile(0,0));
-		market = new MarketPanel();
+		market = new MarketPanel(this);
 		tiles = new Tile[FLOOR_SIZE][FLOOR_SIZE];
 		currentFloor = 0;
 		for(int x = 0; x < FLOOR_SIZE; x++) {
@@ -49,6 +49,19 @@ public class Farm implements GameObject{
 			}
 		}
 		return toRender;
+	}
+	
+	public Tile[][] getTiles(){
+		return tiles;
+	}
+	
+	public void giveResources(){
+		boolean[][] resourcesGiven = market.distributeResources();
+		for(int i = 0; i < tiles.length; i++){
+			for(int c = 0; c < tiles[0].length; c++){
+				tiles[i][c].setHasResources(resourcesGiven[i][c]);
+			}
+		}
 	}
 
 	public void update() {
