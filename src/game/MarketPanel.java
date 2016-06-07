@@ -144,6 +144,7 @@ public class MarketPanel implements GameObject{
 				paths.add(Plant.loadPlant(i).getImagePath());
 			}catch(Exception e){
 				//We gotta write up some plants
+				//Edit: We gotta generate some plants and add ART
 			}
 		}
 		return paths;
