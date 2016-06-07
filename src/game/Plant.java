@@ -162,6 +162,6 @@ public class Plant {
 	}
 	
 	public String getDescription() {
-		return attributes.get(5);
+		return attributes.get(4);
 	}
 }

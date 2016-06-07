@@ -46,6 +46,8 @@ public class MarketPanel implements GameObject{
 		imagePath = "res/MarketPanelImage.png";
 		
 		recentlySold = new ArrayList<>();
+		
+		assignTrendingPlant();
 	}
 	
 	public boolean[][] distributeResources(){
@@ -114,16 +116,37 @@ public class MarketPanel implements GameObject{
 		toRender.add(new RenderableImage(imagePath, 10, 650, 1));
 		RenderableText trending = new RenderableText("Currently Trending Plant: " + trendingPlant.getName(), 710, 850);
 		toRender.add(trending);
+		//TODO: Uncomment when implemented
+		//toRender.addAll(renderPlantsAndPrices());
 		return toRender;
+	}
+	
+	private ArrayList<Renderable> renderPlantsAndPrices(){
+		return null;
 	}
 
 	@Override
 	public void update() {
+		assignTrendingPlant();
+	}
+	
+	private void assignTrendingPlant(){
 		int randomTemp = new Random().nextInt(1000);
 		if(randomTemp==420){
-			//TODO: Uncomment when all plants are written down in file
-			//trendingPlant = Plant.loadPlant(new Random().nextInt(20));
+			trendingPlant = Plant.loadPlant(new Random().nextInt(2) + 17);
 		}
+	}
+	
+	private ArrayList<String> getImagePathsFromPlants(){
+		ArrayList<String> paths = new ArrayList<>();
+		for(int i = 0; i < 20; i++){
+			try{
+				paths.add(Plant.loadPlant(i).getImagePath());
+			}catch(Exception e){
+				//We gotta write up some plants
+			}
+		}
+		return paths;
 	}
 
 }

@@ -42,6 +42,10 @@ public class Farm implements GameObject{
 					System.out.println("Tile (" + x + ", " + y + ") assigned with id 18");
 					tiles[x][y] = new Tile(x,y,Plant.loadPlant(18));
 					break;
+				case 3:
+					System.out.println("Tile (" + x + ", " + y + ") assigned with id 16");
+					tiles[x][y] = new Tile(x,y,Plant.loadPlant(16));
+					break;
 				}
 			}
 		}

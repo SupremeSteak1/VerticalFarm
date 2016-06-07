@@ -1,2 +1,3 @@
-17;Gusberries;honk;5;10;1500;honk honk delete photograph;res/TestPlont.png
-18;Lucky's Mealworms;water,5:fert,2;5;15;1;Is this even a plant?;res/TestPlant.png
+16;Carrot;water,10:fert,15;3;8;1000;Do you even carrot all?;res/carrot.png
+17;Gusberries;water,10:fert,10;5;10;1500;honk honk delete photograph;res/TestPlont.png
+18;Lucky's Mealworms;water,5:fert,20;5;15;1;Is this even a plant?;res/TestPlant.png

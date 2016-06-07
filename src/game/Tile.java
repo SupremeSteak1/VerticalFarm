@@ -14,7 +14,7 @@ public class Tile implements Renderable {
 	
 	private ArrayList<Resource> resources;
 	
-	private String imagePath = "res/PlontTile.png";
+	private String imagePath = "res/tileImage.png";
 	
 	private boolean hasResources;
 	
@@ -125,7 +125,7 @@ public class Tile implements Renderable {
 
 	@Override
 	public void render(Graphics2D g2d) {
-		new RenderableImage("res/PlontTile.png", x*IMAGE_WIDTH, y*IMAGE_HEIGHT, getLevel()).render(g2d);
+		new RenderableImage(imagePath, x*IMAGE_WIDTH, y*IMAGE_HEIGHT, getLevel()).render(g2d);
 		if(plant!=null) {
 			new RenderableImage(plant.getImagePath(), x*IMAGE_WIDTH, y*IMAGE_HEIGHT, getLevel()).render(g2d);
 		}
