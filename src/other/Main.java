@@ -35,11 +35,12 @@ public class Main {
 	*/
 	
 	public static void main(String[] args) {
-		Renderer r = new Renderer(1, 1000, 700);
+		Renderer r = new Renderer(1, 1000, 950);
 		GameObjectHandler goh = new GameObjectHandler();
 		Farm farm = new Farm();
 		goh.registerGameObject(farm);
 		goh.registerGameObject(farm.getInfoPanel());
+		goh.registerGameObject(farm.getMarketPanel());
 		while(true) {
 			r.setQueue(new ArrayList<Renderable>());
 			goh.updateGameObjects();

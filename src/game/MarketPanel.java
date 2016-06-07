@@ -5,12 +5,16 @@ import java.util.Random;
 
 import engine.backend.GameObject;
 import engine.frontend.Renderable;
+import engine.frontend.RenderableImage;
+import engine.frontend.RenderableText;
 
 public class MarketPanel implements GameObject{
 
 	private ArrayList<Integer> resourceCosts;
 	
 	private ArrayList<Plant> recentlySold;
+	
+	private String imagePath;
 	
 	private final int WATER_COST = 10;
 	private final int FERTILIZER_COST = 15;
@@ -29,6 +33,8 @@ public class MarketPanel implements GameObject{
 		resourceCosts = new ArrayList<>();
 		resourceCosts.add(WATER_COST);
 		resourceCosts.add(FERTILIZER_COST);
+		
+		imagePath = "res/MarketPanelImage.png";
 		
 		recentlySold = new ArrayList<>();
 	}
@@ -62,15 +68,19 @@ public class MarketPanel implements GameObject{
 	
 	@Override
 	public ArrayList<Renderable> render() {
-		//TODO: Put in image for market panel
-		return null;
+		ArrayList<Renderable> toRender = new ArrayList<>();
+		toRender.add(new RenderableImage(imagePath, 10, 650, 1));
+		RenderableText trending = new RenderableText("Currently Trending Plant: " + trendingPlant.getName(), 710, 850);
+		toRender.add(trending);
+		return toRender;
 	}
 
 	@Override
 	public void update() {
 		int randomTemp = new Random().nextInt(1000);
 		if(randomTemp==420){
-			//TODO: Load random plant 
+			//TODO: Uncomment when all plants are written down in file
+			//trendingPlant = Plant.loadPlant(new Random().nextInt(20));
 		}
 	}
 

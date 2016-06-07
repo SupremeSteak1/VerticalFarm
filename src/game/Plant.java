@@ -12,6 +12,8 @@ public class Plant {
 	private int upgradeLevel;
 	private int growthLevel;
 	
+	private static File file; //Where the plants are stored
+	
 	private Tile tile;
 	
 	private String imagePath = "res/TestPlant.png";
@@ -34,6 +36,7 @@ public class Plant {
 		neededResources = new ArrayList<Resource>();
 		upgradeLevel = 0;
 		growthLevel = 0;
+		file = new File("res/plants.txt");
 	}
 	
 	public Plant(String imagePath) {
@@ -44,6 +47,7 @@ public class Plant {
 		neededResources = new ArrayList<Resource>();
 		upgradeLevel = 0;
 		growthLevel = 0;
+		file = new File("res/plants.txt");
 	}
 	
 	public Plant(String imagePath, ArrayList<String> attributes) {
@@ -53,10 +57,42 @@ public class Plant {
 		neededResources = new ArrayList<Resource>();
 		upgradeLevel = 0;
 		growthLevel = 0;
+		file = new File("res/plants.txt");
+	}
+	
+	public static Plant loadPlant(int plantID){
+		Plant plant;
+		try {
+			Scanner scan = new Scanner(file);
+			boolean searching = true;
+			String[] line = new String[8];
+			while(searching && scan.hasNextLine()) {
+				line = scan.nextLine().split(";");
+				if(line[0].equals(plantID))
+					searching = false;
+			}
+			ArrayList<String> attributes = new ArrayList<String>();
+			for(int i = 0; i < line.length-2; i++) {
+				if(i!=2) {
+					attributes.add(line[i]);
+				} else {
+					
+				}
+			}
+			plant = new Plant(line[line.length-1],attributes);
+			return plant;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public String getImagePath() {
 		return imagePath;
+	}
+	
+	public String getName(){
+		return attributes.get(1);
 	}
 	
 	public void setTile(Tile t){
@@ -86,8 +122,12 @@ public class Plant {
 		this.upgradeLevel = upgradeLevel;
 	}
 	
-	public void canHarvest() {
-		
+	public void grow(){
+		growthLevel++;
+	}
+	
+	public boolean canHarvest() {
+		return growthLevel >= Integer.parseInt(attributes.get(2));
 	}
 	
 	public ArrayList<String> getAttributes() {

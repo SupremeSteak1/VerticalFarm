@@ -4,10 +4,10 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import engine.backend.GameObject;
-import engine.backend.GameObjectHandler;
 import engine.frontend.Renderable;
 import engine.input.Mouse;
 import game.InfoPanel;
+import game.MarketPanel;
 import game.Plant;
 import game.Tile;
 
@@ -23,9 +23,11 @@ public class Farm implements GameObject{
 	private Point lastClick;
 	
 	private static InfoPanel panel;
+	private static MarketPanel market;
 	
 	public Farm() {
 		panel = new InfoPanel(new Tile(0,0));
+		market = new MarketPanel();
 		tiles = new Tile[FLOOR_SIZE][FLOOR_SIZE];
 		currentFloor = 0;
 		for(int x = 0; x < FLOOR_SIZE; x++) {
@@ -77,5 +79,9 @@ public class Farm implements GameObject{
 	
 	public static InfoPanel getInfoPanel() {
 		return panel;
+	}
+	
+	public static MarketPanel getMarketPanel(){
+		return market;
 	}
 }

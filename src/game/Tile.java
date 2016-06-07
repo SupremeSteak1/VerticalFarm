@@ -32,7 +32,7 @@ public class Tile implements Renderable {
 	public Tile(int x, int y, Plant p) {
 		this.x = x;
 		this.y = y;
-		setPlant(new File("res/plants.txt"),17);
+		setPlant(17);
 	}
 	
 	public String getImagePath() {
@@ -69,7 +69,7 @@ public class Tile implements Renderable {
 		plant.setTile(this);
 	}
 	
-	public void setPlant(File file, int plantID) {
+	public void setPlant(int plantID) {
 		//Attributes:
 		/*
 		* 0 = PlantID
@@ -80,27 +80,7 @@ public class Tile implements Renderable {
 		* 5 = Base Buy Price
 		* 6 = Base Sell Price
 		*/
-		try {
-			Scanner scan = new Scanner(file);
-			boolean searching = true;
-			String[] line = new String[8];
-			while(searching && scan.hasNextLine()) {
-				line = scan.nextLine().split(";");
-				if(line[0].equals(plantID))
-					searching = false;
-			}
-			ArrayList<String> attributes = new ArrayList<String>();
-			for(int i = 0; i < line.length-2; i++) {
-				if(i!=2) {
-					attributes.add(line[i]);
-				} else {
-					
-				}
-			}
-			plant = new Plant(line[line.length-1],attributes);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		plant = Plant.loadPlant(plantID);
 	}
 	
 	/**
@@ -120,10 +100,7 @@ public class Tile implements Renderable {
 	}
 	
 	public void onClick() {
-		System.out.println(this.x + " " + this.y);
 		Farm.getInfoPanel().setTile(this);
-		//InfoPanel panel = new InfoPanel(this);
-		//GameObjectHandler.registerGameObject(panel);
 	}
 	
 	/**
