@@ -13,6 +13,11 @@ import engine.frontend.RenderableImage;
 import engine.frontend.RenderableText;
 import engine.input.Mouse;
 
+/**
+ * 
+ * @author Josh Gordon
+ * @version 6/08/16
+ */
 public class MarketPanel implements GameObject{
 
 	private ArrayList<Integer> resourceCosts;
@@ -61,6 +66,10 @@ public class MarketPanel implements GameObject{
 		}
 	}
 	
+	/**
+	 * Distributes resources to plants on the grid
+	 * @return a 2d boolean array of plants that received the needed resources
+	 */
 	public boolean[][] distributeResources(){
 		boolean[][] distributed = new boolean[farm.getTiles().length][farm.getTiles()[0].length];
 		int x = 0;
@@ -86,18 +95,27 @@ public class MarketPanel implements GameObject{
 		return distributed;
 	}
 	
+	/**
+	 * Gets the resources available
+	 * @return an ArrayList<Resource> of resource available
+	 */
 	public ArrayList<Resource> getResources(){
 		return resources;
 	}
 	
 	/**
-	 * Returns the money that
-	 * @return
+	 * Returns the money that the player has
+	 * @return the money the player has
 	 */
 	public int getMoney(){
 		return money;
 	}
 	
+	/**
+	 * Gets the selling price of a plant
+	 * @param p the plant to get the price of
+	 * @return the selling price of the plant
+	 */
 	public static int getSellingPrice(Plant p){
 		double marketFactor = 1.0;
 		for(Plant soldPlants : recentlySold){
@@ -109,10 +127,18 @@ public class MarketPanel implements GameObject{
 		return (int) Math.round(p.getSellPrice() * marketFactor); 
 	}
 	
+	/**
+	 * Gets the plant that is currently trending
+	 * @return the currently trending plant
+	 */
 	public Plant getTrendingPlant() {
 		return trendingPlant;
 	}
 	
+	/**
+	 * Sells a plant on a given tile
+	 * @param t the tile containing the plant to sell
+	 */
 	public static void sell(Tile t) {
 		Plant p = t.getPlant();
 		money += getSellingPrice(p);
@@ -123,6 +149,9 @@ public class MarketPanel implements GameObject{
 		t.setPlant(0);
 	}
 	
+	/**
+	 * The render method inherited from GameObject
+	 */
 	@Override
 	public ArrayList<Renderable> render() {
 		ArrayList<Renderable> toRender = new ArrayList<>();
@@ -137,6 +166,10 @@ public class MarketPanel implements GameObject{
 		return toRender;
 	}
 	
+	/**
+	 * Renders the plants and their respective prices
+	 * @return an ArrayList<Renderable> of items to render
+	 */
 	private ArrayList<Renderable> renderPlantsAndPrices() {
 		ArrayList<Renderable> toRender = new ArrayList<>();
 		for(int i = 0; i < 5; i++){
@@ -147,12 +180,19 @@ public class MarketPanel implements GameObject{
 		return toRender;
 	}
 	
+	/**
+	 * Assigns plants to the market
+	 * @param plants the plants to be put on the market
+	 */
 	public void assignPlantsAtMarket(ArrayList<Plant> plants){
 		for(int i = 0; i < 5; i++){
 			plantsAtMarket[i] = plants.get(i);
 		}
 	}
-
+	
+	/**
+	 * The update method inherited from GameObject
+	 */
 	@Override
 	public void update() {
 		assignTrendingPlant();
@@ -170,6 +210,10 @@ public class MarketPanel implements GameObject{
 		}
 	}
 	
+	/**
+	 * Plants a seed in a tile
+	 * @param plant the plant to plant
+	 */
 	private void plantSeed(Plant plant){
 		boolean running = true;
 		while(running){
@@ -181,9 +225,12 @@ public class MarketPanel implements GameObject{
 		}
 	}
 	
+	/**
+	 * Sets a new trending plant
+	 */
 	private void assignTrendingPlant(){
 		int randomTemp = new Random().nextInt(1000);
-		if(randomTemp==420){
+		if(randomTemp == 420){
 			trendingPlant = Plant.loadPlant(new Random().nextInt(2) + 17);
 		}
 	}
