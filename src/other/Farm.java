@@ -20,6 +20,8 @@ public class Farm implements GameObject{
 	private int currentFloor;
 	
 	private final long CLICK_DELAY = 100;
+	private final long GROWTH_RATE_MILLIS = 1000;
+	private long growthTime = 0;
 	private Point lastClick;
 	
 	private static InfoPanel panel;
@@ -78,6 +80,14 @@ public class Farm implements GameObject{
 	}
 
 	public void update() {
+		if(growthTime + GROWTH_RATE_MILLIS < System.currentTimeMillis()) {
+			for(int i = 0; i < tiles.length; i++) {
+				for(int j = 0; j < tiles[0].length; j++) {
+					tiles[i][j].getPlant().grow();
+				}
+			}
+			growthTime = System.currentTimeMillis();
+		}
 		Point click = handleClick();
 		if(click.x <= 640 && click.y <= 640 && click.x >= 0 && click.y >= 0) {
 			tiles[click.x/128][click.y/128].onClick();

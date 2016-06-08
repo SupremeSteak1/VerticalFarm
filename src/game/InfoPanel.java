@@ -25,13 +25,14 @@ public class InfoPanel implements GameObject {
 		RenderableImage plantRender = new RenderableImage(tile.getPlant().getImagePath(), 655, 356, 1);
 		RenderableText name = new RenderableText(tile.getPlant().getAttributes().get(1), 660, 48);
 		RenderableText notice = new RenderableText(""+MarketPanel.getSellingPrice(tile.getPlant()), 660, 575);
-		//RenderableText growth = new RenderableText()
+		RenderableText growth = new RenderableText("Growth stage "+tile.getPlant().getGrowthLevel()+"/"+tile.getPlant().getGrowthStages(),750,102);
 		ArrayList<Renderable> toRender = new ArrayList<Renderable>();
 		toRender.add(image);
 		toRender.add(tileRender);
 		toRender.add(plantRender);
 		toRender.add(name);
 		toRender.add(notice);
+		toRender.add(growth);
 		toRender.addAll(renderResources());
 		toRender.addAll(Utilities.renderLongText(25, tile.getPlant().getDescription(), 800, 353));
 		return toRender;
@@ -57,7 +58,7 @@ public class InfoPanel implements GameObject {
 
 	@Override
 	public void update() {
-		if(new Rectangle(664, 528, 701, 552).contains(Mouse.getRecentClickLocationOnScreen()) && !tile.getPlant().getName().equals("Empty Tile")) {
+		if(new Rectangle(664, 528, 701, 552).contains(Mouse.getRecentClickLocationOnScreen()) && !tile.getPlant().isEqualTo(Plant.loadPlant(0))) {
 			MarketPanel.sell(tile);
 		}
 	}

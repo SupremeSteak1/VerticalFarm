@@ -173,7 +173,7 @@ public class Plant {
 	 * Grows the plant
 	 */
 	public void grow(){
-		if(growthLevel>=Integer.parseInt(attributes.get(2)))
+		if(growthLevel < getGrowthStages())
 			growthLevel++;
 	}
 	

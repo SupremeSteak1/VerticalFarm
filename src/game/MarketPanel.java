@@ -5,6 +5,8 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import other.Farm;
 import other.Utilities;
 import engine.backend.GameObject;
@@ -13,11 +15,6 @@ import engine.frontend.RenderableImage;
 import engine.frontend.RenderableText;
 import engine.input.Mouse;
 
-/**
- * 
- * @author Josh Gordon
- * @version 6/08/16
- */
 public class MarketPanel implements GameObject{
 
 	private ArrayList<Integer> resourceCosts;
@@ -147,14 +144,16 @@ public class MarketPanel implements GameObject{
 	 */
 	public static void sell(Tile t) {
 		if(t.getPlant().canHarvest()){
-		Plant p = t.getPlant();
-		money += getSellingPrice(p);
-		recentlySold.add(p);
-		if(recentlySold.size()>=30){
-			recentlySold.remove(0);
+			Plant p = t.getPlant();
+			money += getSellingPrice(p);
+			recentlySold.add(p);
+			if(recentlySold.size()>=30){
+				recentlySold.remove(0);
+			}
+			t.setPlant(0);
+		} else {
+			JOptionPane.showMessageDialog(null, "The plant is not fully grown!");
 		}
-		t.setPlant(0);
-	}
 	}
 	
 	/**
@@ -182,13 +181,12 @@ public class MarketPanel implements GameObject{
 		ArrayList<Renderable> toRender = new ArrayList<>();
 		for(int i = 0; i < 5; i++){
 			if(plantsAtMarket[i].isEqualTo(selectedPlant)){
-				toRender.add(new RenderableText("*" + plantsAtMarket[i].getName() + "*", (i+1)*90,710));
+				toRender.addAll(Utilities.renderLongText(14, "" + plantsAtMarket[i].getName() + "*", (i+1)*90,710));
 				toRender.add(new RenderableText(getSellingPrice(plantsAtMarket[i]) + "", (i+1)*90, 730));
 			}else{
-			toRender.add(new RenderableText(plantsAtMarket[i].getName(), (i+1)*90,710));
-			//Change the above line as more plants get added
-			toRender.addAll(Utilities.renderLongText(14, plantsAtMarket[i].getName(), (i+1)*90,710));
-			toRender.add(new RenderableText(getSellingPrice(plantsAtMarket[i]) + "", (i+1)*90, 730));
+				//Change the above line as more plants get added
+				toRender.addAll(Utilities.renderLongText(14, plantsAtMarket[i].getName(), (i+1)*90,710));
+				toRender.add(new RenderableText(getSellingPrice(plantsAtMarket[i]) + "", (i+1)*90, 730));
 			}
 		}
 		return toRender;
