@@ -5,12 +5,13 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Random;
 
+import other.Farm;
+import other.Utilities;
 import engine.backend.GameObject;
 import engine.frontend.Renderable;
 import engine.frontend.RenderableImage;
 import engine.frontend.RenderableText;
 import engine.input.Mouse;
-import other.Farm;
 
 public class MarketPanel implements GameObject{
 
@@ -40,7 +41,7 @@ public class MarketPanel implements GameObject{
 	 */
 	private static int money;
 	
-	public MarketPanel(Farm farm){
+	public MarketPanel(Farm farm) {
 		this.farm = farm;
 		
 		//Removed plant constructor
@@ -152,6 +153,8 @@ public class MarketPanel implements GameObject{
 				toRender.add(new RenderableText(getSellingPrice(plantsAtMarket[i]) + "", (i+1)*90, 730));
 			}else{
 			toRender.add(new RenderableText(plantsAtMarket[i].getName(), (i+1)*90,710));
+			//Change the above line as more plants get added
+			toRender.addAll(Utilities.renderLongText(14, plantsAtMarket[i].getName(), (i+1)*90,710));
 			toRender.add(new RenderableText(getSellingPrice(plantsAtMarket[i]) + "", (i+1)*90, 730));
 			}
 		}

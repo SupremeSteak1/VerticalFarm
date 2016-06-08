@@ -1,9 +1,9 @@
 package game;
 
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import other.Utilities;
 import engine.backend.GameObject;
 import engine.frontend.Renderable;
 import engine.frontend.RenderableImage;
@@ -33,7 +33,7 @@ public class InfoPanel implements GameObject {
 		toRender.add(name);
 		toRender.add(notice);
 		toRender.addAll(renderResources());
-		toRender.addAll(renderLongText(25, tile.getPlant().getDescription(), 800, 353));
+		toRender.addAll(Utilities.renderLongText(25, tile.getPlant().getDescription(), 800, 353));
 		return toRender;
 	}
 	
@@ -43,19 +43,6 @@ public class InfoPanel implements GameObject {
 		for(int i = 0; i < res.size(); i++){
 			Resource r = res.get(i);
 			toRender.add(new RenderableText(r.getType().name() + ": " + r.getAmount(), 650, 125 + i*15));
-		}
-		return toRender;
-	}
-	
-	private ArrayList<Renderable> renderLongText(int width, String text, int x, int y){
-		int lines = (int) Math.ceil((double) text.length() / (double) width);
-		ArrayList<Renderable> toRender = new ArrayList<>();
-		for(int i = 0; i < lines; i++){
-			try{
-			toRender.add(new RenderableText(text.substring(i*width,(i+1)*width), x, y + i*10));
-			}catch(Exception e){
-				toRender.add(new RenderableText(text.substring(i*width,text.length()), x, y + i*10));
-			}
 		}
 		return toRender;
 	}
@@ -70,8 +57,8 @@ public class InfoPanel implements GameObject {
 
 	@Override
 	public void update() {
-		if(new Rectangle(90, 730, 80, 50).contains(Mouse.getRecentClickLocationOnScreen())) {
-			
+		if(new Rectangle(664, 528, 701, 552).contains(Mouse.getRecentClickLocationOnScreen()) && !tile.getPlant().getName().equals("Empty Tile")) {
+			MarketPanel.sell(tile);
 		}
 	}
 	

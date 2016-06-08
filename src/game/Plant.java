@@ -29,25 +29,6 @@ public class Plant {
 	 * 6 = Image File Path
 	 */
 	
-	
-	public Plant() {
-		/*
-		attributes = new ArrayList<String>();
-		attributes.add("0");
-		attributes.add("Test plont");
-		attributes.add("0");
-		attributes.add("0");
-		attributes.add("0");
-		attributes.add("0");
-		attributes.add("0");
-		neededResources = new ArrayList<Resource>();
-		upgradeLevel = 0;
-		growthLevel = 0;
-		file = new File("res/plants.txt");
-		*/
-		//loadPlant();
-	}
-	
 	public Plant(String imagePath, ArrayList<String> attributes, ArrayList<Resource> res) {
 		this.imagePath = imagePath;
 		this.attributes = new ArrayList<String>();

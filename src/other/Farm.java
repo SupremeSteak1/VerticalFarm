@@ -36,15 +36,15 @@ public class Farm implements GameObject{
 				/* DEBUG PURPOSES ONLY
 				   switch(x) {
 				case 1:
-					System.out.println("Tile (" + x + ", " + y + ") assigned with id 17");
+					//System.out.println("Tile (" + x + ", " + y + ") assigned with id 17");
 					tiles[x][y] = new Tile(x,y,Plant.loadPlant(17));
 					break;
 				case 2:
-					System.out.println("Tile (" + x + ", " + y + ") assigned with id 18");
+					//System.out.println("Tile (" + x + ", " + y + ") assigned with id 18");
 					tiles[x][y] = new Tile(x,y,Plant.loadPlant(18));
 					break;
 				case 3:
-					System.out.println("Tile (" + x + ", " + y + ") assigned with id 16");
+					//System.out.println("Tile (" + x + ", " + y + ") assigned with id 16");
 					tiles[x][y] = new Tile(x,y,Plant.loadPlant(16));
 					break;
 				}
