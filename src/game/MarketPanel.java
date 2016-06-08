@@ -18,7 +18,7 @@ public class MarketPanel implements GameObject{
 	
 	private ArrayList<Resource> resources;
 	
-	private ArrayList<Plant> recentlySold;
+	private static ArrayList<Plant> recentlySold;
 	
 	private Farm farm;
 	
@@ -27,14 +27,14 @@ public class MarketPanel implements GameObject{
 	private final int WATER_COST = 10;
 	private final int FERTILIZER_COST = 15;
 	
-	private Plant trendingPlant = new Plant();
+	private static Plant trendingPlant = Plant.loadPlant(0);
 	
 	private Plant[] plantsAtMarket;
 	/*
 	 * 0 = water
 	 * 1 = fertilizer
 	 */
-	private int money;
+	private static int money;
 	
 	public MarketPanel(Farm farm){
 		this.farm = farm;
@@ -97,7 +97,7 @@ public class MarketPanel implements GameObject{
 		return money;
 	}
 	
-	public int getSellingPrice(Plant p){
+	public static int getSellingPrice(Plant p){
 		double marketFactor = 1.0;
 		for(Plant soldPlants : recentlySold){
 			if(p.equals(soldPlants)){
@@ -108,18 +108,18 @@ public class MarketPanel implements GameObject{
 		return (int) Math.round(p.getSellPrice() * marketFactor); 
 	}
 	
-	public Plant getTrendingPlant(){
+	public Plant getTrendingPlant() {
 		return trendingPlant;
 	}
 	
-	public void sell(Tile t){
+	public static void sell(Tile t) {
 		Plant p = t.getPlant();
 		money += getSellingPrice(p);
 		recentlySold.add(p);
 		if(recentlySold.size()>=30){
 			recentlySold.remove(0);
 		}
-		//TODO: Set tile plant to NOT_SET plant when implemented
+		t.setPlant(0);
 	}
 	
 	@Override
@@ -127,14 +127,16 @@ public class MarketPanel implements GameObject{
 		ArrayList<Renderable> toRender = new ArrayList<>();
 		toRender.add(new RenderableImage(imagePath, 10, 650, 1));
 		RenderableText trending = new RenderableText("Currently Trending Plant: " + trendingPlant.getName(), 710, 850);
+		RenderableText buyLabel = new RenderableText("Buy Price:", 32, 730);
+		RenderableText money = new RenderableText(""+getMoney(), 720, 720);
 		toRender.add(trending);
+		toRender.add(buyLabel);
+		toRender.add(money);
 		toRender.addAll(renderPlantsAndPrices());
-		//TODO: Uncomment when implemented
-		//toRender.addAll(renderPlantsAndPrices());
 		return toRender;
 	}
 	
-	private ArrayList<Renderable> renderPlantsAndPrices(){
+	private ArrayList<Renderable> renderPlantsAndPrices() {
 		ArrayList<Renderable> toRender = new ArrayList<>();
 		for(int i = 0; i < 5; i++){
 			//Change the above line as more plants get added
@@ -173,6 +175,7 @@ public class MarketPanel implements GameObject{
 			Point p = Mouse.getRecentClickLocationOnScreen();
 			if(new Rectangle(640,640).contains(p)){
 				farm.getTiles()[p.x/128][p.y/128].setPlant(plant);
+				running = false;
 			}
 		}
 	}

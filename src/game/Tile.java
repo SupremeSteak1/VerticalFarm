@@ -10,7 +10,7 @@ import other.Farm;
 
 public class Tile implements Renderable {
 	
-	private Plant plant = new Plant();
+	private Plant plant = Plant.loadPlant(0);
 	
 	private ArrayList<Resource> resources;
 	

@@ -1,12 +1,14 @@
 package game;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import engine.backend.GameObject;
 import engine.frontend.Renderable;
 import engine.frontend.RenderableImage;
 import engine.frontend.RenderableText;
+import engine.input.Mouse;
 
 public class InfoPanel implements GameObject {
 	
@@ -22,11 +24,13 @@ public class InfoPanel implements GameObject {
 		RenderableImage tileRender = new RenderableImage(tile.getImagePath(), 655, 356, 1);
 		RenderableImage plantRender = new RenderableImage(tile.getPlant().getImagePath(), 655, 356, 1);
 		RenderableText name = new RenderableText(tile.getPlant().getAttributes().get(1), 660, 48);
+		RenderableText notice = new RenderableText(""+MarketPanel.getSellingPrice(tile.getPlant()), 660, 575);
 		ArrayList<Renderable> toRender = new ArrayList<Renderable>();
 		toRender.add(image);
 		toRender.add(tileRender);
 		toRender.add(plantRender);
 		toRender.add(name);
+		toRender.add(notice);
 		toRender.addAll(renderResources());
 		toRender.addAll(renderLongText(25, tile.getPlant().getDescription(), 800, 353));
 		return toRender;
@@ -65,7 +69,9 @@ public class InfoPanel implements GameObject {
 
 	@Override
 	public void update() {
-		
+		if(new Rectangle(90, 730, 80, 50).contains(Mouse.getRecentClickLocationOnScreen())) {
+			
+		}
 	}
 	
 }

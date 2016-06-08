@@ -31,6 +31,7 @@ public class Plant {
 	
 	
 	public Plant() {
+		/*
 		attributes = new ArrayList<String>();
 		attributes.add("0");
 		attributes.add("Test plont");
@@ -43,24 +44,9 @@ public class Plant {
 		upgradeLevel = 0;
 		growthLevel = 0;
 		file = new File("res/plants.txt");
+		*/
+		//loadPlant();
 	}
-	
-	public Plant(String imagePath) {
-		this.imagePath = imagePath;
-		attributes = new ArrayList<String>();
-		attributes.add("0");
-		attributes.add("Test plont");
-		attributes.add("0");
-		attributes.add("0");
-		attributes.add("0");
-		attributes.add("0");
-		attributes.add("0");
-		neededResources = new ArrayList<Resource>();
-		upgradeLevel = 0;
-		growthLevel = 0;
-		file = new File("res/plants.txt");
-	}
-	
 	
 	public Plant(String imagePath, ArrayList<String> attributes, ArrayList<Resource> res) {
 		this.imagePath = imagePath;
@@ -88,7 +74,7 @@ public class Plant {
 			while(searching) {
 				try{
 				line = scan.nextLine().split(";");
-				System.out.println(line[0] + " AND " + plantID);
+				//System.out.println(line[0] + " AND " + plantID);
 				if(line[0].equals(""+plantID)) {
 					System.out.println("MATCH");
 					searching = false;
@@ -107,7 +93,7 @@ public class Plant {
 					}
 				}
 			}
-			System.out.println(attributes.get(1));
+			//System.out.println(attributes.get(1));
 			plant = new Plant(line[line.length-1],attributes, res);
 			return plant;
 		} catch (FileNotFoundException e) {
