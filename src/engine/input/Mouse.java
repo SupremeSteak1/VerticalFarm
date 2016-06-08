@@ -12,16 +12,23 @@ public class Mouse implements MouseListener{
 
 	private static Point recentClick;
 	private static long recentClickTime;
+	private static Point lessRecentClick;
 	
 	public Mouse() {
 		recentClick = new Point(0,0);
 		recentClickTime = 0;
+		lessRecentClick = new Point(0,0);
+	}
+	
+	
+	public static Point getLessRecentClickLocationOnScreen() {
+		return lessRecentClick;
 	}
 	
 	/**
 	 * @return the point where the mouse recent click occurred
 	 */
-	public static Point getRecentClickLocationOnScreen(){
+	public static Point getRecentClickLocationOnScreen() {
 		return recentClick;
 	}
 	
@@ -30,7 +37,7 @@ public class Mouse implements MouseListener{
 	}
 	
 	public void mouseClicked(MouseEvent e) {
-		//System.out.println("Click at " + e.getPoint().toString());
+		System.out.println("Click at " + e.getPoint().toString());
 	}
 
 	public void mouseEntered(MouseEvent e) {
@@ -49,6 +56,7 @@ public class Mouse implements MouseListener{
 	}
 
 	public void mouseReleased(MouseEvent e) {
+		lessRecentClick = recentClick;
 		recentClick = new Point(0,0);
 		recentClickTime = 0;
 	}

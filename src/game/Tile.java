@@ -123,6 +123,9 @@ public class Tile implements Renderable {
 		if(plant!=null) {
 			new RenderableImage(plant.getImagePath(), x*IMAGE_WIDTH, y*IMAGE_HEIGHT, getLevel()).render(g2d);
 		}
+		if(plant.getGrowthLevel()==plant.getGrowthStages()&&plant.getGrowthStages()>0) {
+			new RenderableImage("res/Grown.png", x*IMAGE_WIDTH, y*IMAGE_HEIGHT, getLevel()).render(g2d);
+		}
 	}
 
 	@Override

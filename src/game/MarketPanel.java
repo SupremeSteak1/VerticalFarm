@@ -46,11 +46,14 @@ public class MarketPanel implements GameObject{
 	 */
 	private static int money;
 	
+	private int waterPrice = 25;
+	private int fertPrice = 30;
+	
 	public MarketPanel(Farm farm) {
 		this.farm = farm;
 		
 		//Removed plant constructor
-		money = 2000;
+		money = 5000;
 		
 		plantsAtMarket = new Plant[5];
 		
@@ -99,7 +102,7 @@ public class MarketPanel implements GameObject{
 							} else {
 								//System.out.println("B:"+b.getType());
 								//System.out.println("R:"+r.getType());
-								System.out.println(r.toString());
+								//System.out.println(r.toString());
 								distributed[x][y] = false;
 								//System.out.println(y+(x*5));
 							}
@@ -201,9 +204,11 @@ public class MarketPanel implements GameObject{
 		RenderableText money = new RenderableText(""+getMoney(), 720, 720);
 		for(int i = 0; i < resources.size(); i++) {
 			Resource r = resources.get(i);
-			RenderableText resource = new RenderableText(""+r.getType()+" : "+r.getAmount(), 32, 750+(20*i));
+			RenderableText resource = new RenderableText(""+r.getAmount(), 720, 760+(40*i));
 			toRender.add(resource);
 		}
+		toRender.addAll(Utilities.renderLongText(11, "Water (50x)           "+waterPrice, 540, 710));
+		toRender.addAll(Utilities.renderLongText(10, "Fert (50x)          "+fertPrice, 620, 710));
 		toRender.add(trending);
 		toRender.add(buyLabel);
 		toRender.add(money);
@@ -217,11 +222,11 @@ public class MarketPanel implements GameObject{
 	 */
 	private ArrayList<Renderable> renderPlantsAndPrices() {
 		ArrayList<Renderable> toRender = new ArrayList<>();
-		for(int i = 0; i < 5; i++){
+		for(int i = 0; i < 5; i++) {
 			if(plantsAtMarket[i].isEqualTo(selectedPlant)){
 				toRender.addAll(Utilities.renderLongText(14, "" + plantsAtMarket[i].getName() + "*", (i+1)*90,710));
 				toRender.add(new RenderableText(getSellingPrice(plantsAtMarket[i]) + "", (i+1)*90, 730));
-			}else{
+			} else {
 				//Change the above line as more plants get added
 				toRender.addAll(Utilities.renderLongText(14, plantsAtMarket[i].getName(), (i+1)*90,710));
 				toRender.add(new RenderableText(getSellingPrice(plantsAtMarket[i]) + "", (i+1)*90, 730));
@@ -256,7 +261,7 @@ public class MarketPanel implements GameObject{
 					getSellingPrice(plantsAtMarket[i]) <= getMoney()){
 				//System.out.println("DEBUG YO!");
 				money -= getSellingPrice(plantsAtMarket[i]);
-				selectedPlant = plantsAtMarket[i];
+				selectedPlant = Plant.loadPlant(Integer.parseInt(plantsAtMarket[i].getAttributes().get(0)));
 				planting = true;
 			}
 		}
@@ -268,6 +273,14 @@ public class MarketPanel implements GameObject{
 				this.selectedPlant = Plant.loadPlant(0);
 				planting = false;
 			}
+		}
+		if(new Rectangle(542, 743, 34, 13).contains(Mouse.getRecentClickLocationOnScreen()) && getWaterPrice() <= getMoney()) {
+			this.resources.get(0).addResource(50);
+			money -= getWaterPrice();
+		}
+		if(new Rectangle(623, 744, 28, 14).contains(Mouse.getRecentClickLocationOnScreen()) && getFertPrice() <= getMoney()) {
+			this.resources.get(1).addResource(50);
+			money -= getFertPrice();
 		}
 	}
 	
@@ -311,6 +324,14 @@ public class MarketPanel implements GameObject{
 			}
 		}
 		return paths;
+	}
+	
+	private int getWaterPrice() {
+		return waterPrice;
+	}
+	
+	private int getFertPrice() {
+		return fertPrice;
 	}
 
 }
