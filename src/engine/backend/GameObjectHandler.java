@@ -19,6 +19,10 @@ public class GameObjectHandler {
 		gameObjects.add(go);
 	}
 	
+	public static void unregisterGameObject(GameObject go) {
+		gameObjects.remove(go);
+	}
+	
 	public static void clearGameObjects() {
 		gameObjects = new ArrayList<GameObject>();
 	}
@@ -49,3 +53,4 @@ public class GameObjectHandler {
 		}
 	}
 }
+
