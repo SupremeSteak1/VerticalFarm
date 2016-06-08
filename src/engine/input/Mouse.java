@@ -42,8 +42,10 @@ public class Mouse implements MouseListener{
 	}
 
 	public void mousePressed(MouseEvent e) {
+		if(System.currentTimeMillis()-recentClickTime >= 500){
 		recentClick = e.getPoint();
 		recentClickTime = System.currentTimeMillis();
+		}
 	}
 
 	public void mouseReleased(MouseEvent e) {

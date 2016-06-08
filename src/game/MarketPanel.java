@@ -30,8 +30,12 @@ public class MarketPanel implements GameObject{
 	
 	private String imagePath;
 	
+	private Plant selectedPlant;
+	
 	private final int WATER_COST = 10;
 	private final int FERTILIZER_COST = 15;
+	
+	private boolean planting;
 	
 	private static Plant trendingPlant = Plant.loadPlant(0);
 	
@@ -46,7 +50,7 @@ public class MarketPanel implements GameObject{
 		this.farm = farm;
 		
 		//Removed plant constructor
-		money = 100;
+		money = 2000;
 		
 		plantsAtMarket = new Plant[5];
 		
@@ -59,6 +63,8 @@ public class MarketPanel implements GameObject{
 		imagePath = "res/MarketPanelImage.png";
 		
 		recentlySold = new ArrayList<>();
+		
+		selectedPlant = Plant.loadPlant(0);
 		
 		assignTrendingPlant();
 		for(int i = 0; i < 5; i++){
@@ -140,6 +146,7 @@ public class MarketPanel implements GameObject{
 	 * @param t the tile containing the plant to sell
 	 */
 	public static void sell(Tile t) {
+		if(t.getPlant().canHarvest()){
 		Plant p = t.getPlant();
 		money += getSellingPrice(p);
 		recentlySold.add(p);
@@ -147,6 +154,7 @@ public class MarketPanel implements GameObject{
 			recentlySold.remove(0);
 		}
 		t.setPlant(0);
+	}
 	}
 	
 	/**
@@ -173,9 +181,15 @@ public class MarketPanel implements GameObject{
 	private ArrayList<Renderable> renderPlantsAndPrices() {
 		ArrayList<Renderable> toRender = new ArrayList<>();
 		for(int i = 0; i < 5; i++){
+			if(plantsAtMarket[i].isEqualTo(selectedPlant)){
+				toRender.add(new RenderableText("*" + plantsAtMarket[i].getName() + "*", (i+1)*90,710));
+				toRender.add(new RenderableText(getSellingPrice(plantsAtMarket[i]) + "", (i+1)*90, 730));
+			}else{
+			toRender.add(new RenderableText(plantsAtMarket[i].getName(), (i+1)*90,710));
 			//Change the above line as more plants get added
 			toRender.addAll(Utilities.renderLongText(14, plantsAtMarket[i].getName(), (i+1)*90,710));
 			toRender.add(new RenderableText(getSellingPrice(plantsAtMarket[i]) + "", (i+1)*90, 730));
+			}
 		}
 		return toRender;
 	}
@@ -204,8 +218,19 @@ public class MarketPanel implements GameObject{
 		for(int i = 0; i < 5; i++){
 			if(new Rectangle((i+1)*90, 730, 80, 50).contains(Mouse.getRecentClickLocationOnScreen()) &&
 					getSellingPrice(plantsAtMarket[i]) <= getMoney()){
+				//System.out.println("DEBUG YO!");
 				money -= getSellingPrice(plantsAtMarket[i]);
-				plantSeed(plantsAtMarket[i]);
+				selectedPlant = plantsAtMarket[i];
+				planting = true;
+			}
+		}
+		if(planting){
+			Point p = Mouse.getRecentClickLocationOnScreen();
+			System.out.print("");
+			if(new Rectangle(1,1,640,640).contains(p)){
+				farm.getTiles()[p.x/128][p.y/128].setPlant(selectedPlant);
+				this.selectedPlant = Plant.loadPlant(0);
+				planting = false;
 			}
 		}
 	}
@@ -214,12 +239,16 @@ public class MarketPanel implements GameObject{
 	 * Plants a seed in a tile
 	 * @param plant the plant to plant
 	 */
-	private void plantSeed(Plant plant){
+	private void plantSeed(Plant plant) {
+		this.selectedPlant = plant;
+		System.out.println(selectedPlant.getName() + " IS SELECTED");
 		boolean running = true;
 		while(running){
 			Point p = Mouse.getRecentClickLocationOnScreen();
-			if(new Rectangle(640,640).contains(p)){
+			System.out.print("");
+			if(new Rectangle(1,1,640,640).contains(p)){
 				farm.getTiles()[p.x/128][p.y/128].setPlant(plant);
+				this.selectedPlant = Plant.loadPlant(0);
 				running = false;
 			}
 		}

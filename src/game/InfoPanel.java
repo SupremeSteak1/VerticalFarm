@@ -25,6 +25,7 @@ public class InfoPanel implements GameObject {
 		RenderableImage plantRender = new RenderableImage(tile.getPlant().getImagePath(), 655, 356, 1);
 		RenderableText name = new RenderableText(tile.getPlant().getAttributes().get(1), 660, 48);
 		RenderableText notice = new RenderableText(""+MarketPanel.getSellingPrice(tile.getPlant()), 660, 575);
+		//RenderableText growth = new RenderableText()
 		ArrayList<Renderable> toRender = new ArrayList<Renderable>();
 		toRender.add(image);
 		toRender.add(tileRender);

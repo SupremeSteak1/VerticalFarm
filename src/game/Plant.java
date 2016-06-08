@@ -178,6 +178,22 @@ public class Plant {
 	}
 	
 	/**
+	 * Gets how many growth stages the plant has
+	 * @return the number of growth stages
+	 */
+	public int getGrowthStages(){
+		return Integer.parseInt(this.attributes.get(2));
+	}
+	
+	/**
+	 * Gets the plant's current growth level
+	 * @return the current growth level
+	 */
+	public int getGrowthLevel(){
+		return this.growthLevel;
+	}
+	
+	/**
 	 * Checks if the plant can be harvested yet
 	 * @return if the plant can be harvested
 	 */
@@ -191,6 +207,15 @@ public class Plant {
 	 */
 	public ArrayList<String> getAttributes() {
 		return attributes;
+	}
+	
+	/**
+	 * Checks if this plant is equal to another plant
+	 * @param other the other plant
+	 * @return if the plants are equal
+	 */
+	public boolean isEqualTo(Plant other){
+		return this.attributes.get(0).equals(other.getAttributes().get(0));
 	}
 	
 	/**
