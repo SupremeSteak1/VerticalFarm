@@ -76,7 +76,7 @@ public class Plant {
 				line = scan.nextLine().split(";");
 				//System.out.println(line[0] + " AND " + plantID);
 				if(line[0].equals(""+plantID)) {
-					System.out.println("MATCH");
+					//System.out.println("MATCH");
 					searching = false;
 				}
 				}catch(NoSuchElementException e){}
@@ -147,12 +147,24 @@ public class Plant {
 		growthLevel++;
 	}
 	
+	public int getGrowthStages(){
+		return Integer.parseInt(this.attributes.get(2));
+	}
+	
+	public int getGrowthLevel(){
+		return this.growthLevel;
+	}
+	
 	public boolean canHarvest() {
 		return growthLevel >= Integer.parseInt(attributes.get(2));
 	}
 	
 	public ArrayList<String> getAttributes() {
 		return attributes;
+	}
+	
+	public boolean isEqualTo(Plant other){
+		return this.attributes.get(0).equals(other.getAttributes().get(0));
 	}
 	
 	public String getDescription() {

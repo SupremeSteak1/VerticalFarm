@@ -33,7 +33,8 @@ public class Farm implements GameObject{
 		for(int x = 0; x < FLOOR_SIZE; x++) {
 			for(int y = 0; y < FLOOR_SIZE; y++) {
 				tiles[x][y] = new Tile(x,y);
-				switch(x) {
+				/* DEBUG PURPOSES ONLY
+				   switch(x) {
 				case 1:
 					System.out.println("Tile (" + x + ", " + y + ") assigned with id 17");
 					tiles[x][y] = new Tile(x,y,Plant.loadPlant(17));
@@ -47,6 +48,7 @@ public class Farm implements GameObject{
 					tiles[x][y] = new Tile(x,y,Plant.loadPlant(16));
 					break;
 				}
+				*/
 			}
 		}
 		lastClick = new Point(0,0);
