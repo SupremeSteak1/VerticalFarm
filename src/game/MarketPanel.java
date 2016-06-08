@@ -1,5 +1,7 @@
 package game;
 
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -7,6 +9,7 @@ import engine.backend.GameObject;
 import engine.frontend.Renderable;
 import engine.frontend.RenderableImage;
 import engine.frontend.RenderableText;
+import engine.input.Mouse;
 import other.Farm;
 
 public class MarketPanel implements GameObject{
@@ -109,12 +112,14 @@ public class MarketPanel implements GameObject{
 		return trendingPlant;
 	}
 	
-	public void sell(Plant p){
+	public void sell(Tile t){
+		Plant p = t.getPlant();
 		money += getSellingPrice(p);
 		recentlySold.add(p);
 		if(recentlySold.size()>=30){
 			recentlySold.remove(0);
 		}
+		//TODO: Set tile plant to NOT_SET plant when implemented
 	}
 	
 	@Override
@@ -152,6 +157,23 @@ public class MarketPanel implements GameObject{
 		if(randomTemp==420){
 			plantsAtMarket[new Random().nextInt(5)] = Plant.loadPlant(new Random().nextInt(9) + 10);
 			//Change the above when more plants are added
+		}
+		for(int i = 0; i < 5; i++){
+			if(new Rectangle((i+1)*90, 730, 80, 50).contains(Mouse.getRecentClickLocationOnScreen()) &&
+					getSellingPrice(plantsAtMarket[i]) <= getMoney()){
+				money -= getSellingPrice(plantsAtMarket[i]);
+				plantSeed(plantsAtMarket[i]);
+			}
+		}
+	}
+	
+	private void plantSeed(Plant plant){
+		boolean running = true;
+		while(running){
+			Point p = Mouse.getRecentClickLocationOnScreen();
+			if(new Rectangle(640,640).contains(p)){
+				farm.getTiles()[p.x/128][p.y/128].setPlant(plant);
+			}
 		}
 	}
 	

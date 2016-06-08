@@ -62,12 +62,12 @@ public class Plant {
 	}
 	
 	
-	public Plant(String imagePath, ArrayList<String> attributes) {
+	public Plant(String imagePath, ArrayList<String> attributes, ArrayList<Resource> res) {
 		this.imagePath = imagePath;
 		this.attributes = new ArrayList<String>();
 		String resources = attributes.remove(2);
 		this.attributes.addAll(attributes);
-		neededResources = new ArrayList<Resource>();
+		neededResources = res;
 		String[] resourcePairs = resources.split(":");
 		for(String s : resourcePairs) {
 			if(s.split(",")[0].equals("water")) {
@@ -80,6 +80,7 @@ public class Plant {
 	
 	public static Plant loadPlant(int plantID){
 		Plant plant;
+		ArrayList<Resource> res = new ArrayList<>();
 		try {
 			Scanner scan = new Scanner(file);
 			boolean searching = true;
@@ -99,11 +100,15 @@ public class Plant {
 				if(i!=2) {
 					attributes.add(line[i]);
 				} else {
-					
+					String[] resources = line[i].split(":");
+					for(int c = 0; c < resources.length; c++){
+						Resource needed = new Resource(Resource.resourceTypes.valueOf(resources[c].split(",")[0].toUpperCase()),Integer.parseInt(resources[c].split(",")[1]));
+						res.add(needed);
+					}
 				}
 			}
 			System.out.println(attributes.get(1));
-			plant = new Plant(line[line.length-1],attributes);
+			plant = new Plant(line[line.length-1],attributes, res);
 			return plant;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

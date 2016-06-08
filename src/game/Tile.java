@@ -23,6 +23,8 @@ public class Tile implements Renderable {
 	private final int IMAGE_HEIGHT = 128;
 	private final int IMAGE_WIDTH = 128;
 	
+	private int growTimer;
+	
 	public Tile(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -112,15 +114,6 @@ public class Tile implements Renderable {
 	
 	public void onClick() {
 		Farm.getInfoPanel().setTile(this);
-	}
-	
-	/**
-	 * Returns if the plant can grow with the current resources or not
-	 * @return if the plant can grow
-	 */
-	public boolean canPlantGrow(){
-		if(isEmpty()) return false;
-		return true; //TODO: Fix
 	}
 
 	@Override

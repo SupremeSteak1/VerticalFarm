@@ -14,7 +14,7 @@ public class Resource {
 	public enum resourceTypes{
 		NOT_SET,
 		WATER,
-		FERTILIZER
+		FERT
 	}
 
 	public resourceTypes getType() {

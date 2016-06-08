@@ -8,8 +8,7 @@ import engine.frontend.Renderable;
 
 public class Main {
 	
-	private static boolean running;
-	
+	@SuppressWarnings("static-access")
 	public static void main(String[] args) {
 		Renderer r = new Renderer(1, 1000, 950);
 		GameObjectHandler goh = new GameObjectHandler();

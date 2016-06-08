@@ -22,14 +22,23 @@ public class InfoPanel implements GameObject {
 		RenderableImage tileRender = new RenderableImage(tile.getImagePath(), 655, 356, 1);
 		RenderableImage plantRender = new RenderableImage(tile.getPlant().getImagePath(), 655, 356, 1);
 		RenderableText name = new RenderableText(tile.getPlant().getAttributes().get(1), 660, 48);
-		//RenderableText description = new RenderableText(tile.getPlant().getDescription(), 800, 353);
 		ArrayList<Renderable> toRender = new ArrayList<Renderable>();
 		toRender.add(image);
 		toRender.add(tileRender);
 		toRender.add(plantRender);
 		toRender.add(name);
-		//toRender.add(description);
+		toRender.addAll(renderResources());
 		toRender.addAll(renderLongText(25, tile.getPlant().getDescription(), 800, 353));
+		return toRender;
+	}
+	
+	private ArrayList<Renderable> renderResources() {
+		ArrayList<Renderable> toRender = new ArrayList<>();
+		ArrayList<Resource> res = tile.getPlant().getNeededResources();
+		for(int i = 0; i < res.size(); i++){
+			Resource r = res.get(i);
+			toRender.add(new RenderableText(r.getType().name() + ": " + r.getAmount(), 650, 125 + i*15));
+		}
 		return toRender;
 	}
 	
@@ -56,10 +65,6 @@ public class InfoPanel implements GameObject {
 
 	@Override
 	public void update() {
-		
-	}
-	
-	public void onClick(Point p) {
 		
 	}
 	
