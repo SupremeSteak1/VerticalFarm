@@ -13,9 +13,11 @@ public class Main {
 		Renderer r = new Renderer(1, 1000, 950);
 		GameObjectHandler goh = new GameObjectHandler();
 		Farm farm = new Farm();
+		MainMenu mm = new MainMenu();
 		goh.registerGameObject(farm);
 		goh.registerGameObject(farm.getInfoPanel());
 		goh.registerGameObject(farm.getMarketPanel());
+		goh.registerGameObject(mm);
 		while(true) {
 			r.setQueue(new ArrayList<Renderable>());
 			goh.updateGameObjects();
