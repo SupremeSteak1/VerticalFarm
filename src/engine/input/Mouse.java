@@ -19,7 +19,7 @@ public class Mouse implements MouseListener{
 	}
 	
 	/**
-	 * @return the point where the moust recent click occurred
+	 * @return the point where the mouse recent click occurred
 	 */
 	public static Point getRecentClickLocationOnScreen(){
 		return recentClick;
@@ -30,11 +30,7 @@ public class Mouse implements MouseListener{
 	}
 	
 	public void mouseClicked(MouseEvent e) {
-		
-		
-		
-		//System.out.println("Click at " + recentClick.toString());
-		
+		//System.out.println("Click at " + e.getPoint().toString());
 	}
 
 	public void mouseEntered(MouseEvent e) {
