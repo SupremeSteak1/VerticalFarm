@@ -3,6 +3,7 @@ package game;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Plant {
@@ -84,12 +85,14 @@ public class Plant {
 			boolean searching = true;
 			String[] line = new String[8];
 			while(searching) {
+				try{
 				line = scan.nextLine().split(";");
 				System.out.println(line[0] + " AND " + plantID);
 				if(line[0].equals(""+plantID)) {
 					System.out.println("MATCH");
 					searching = false;
 				}
+				}catch(NoSuchElementException e){}
 			}
 			ArrayList<String> attributes = new ArrayList<String>();
 			for(int i = 0; i < line.length; i++) {
@@ -126,11 +129,11 @@ public class Plant {
 	}
 	
 	public int getBuyPrice(){
-		return Integer.parseInt(this.attributes.get(3));
+		return Integer.parseInt(this.attributes.get(2));
 	}
 	
 	public int getSellPrice(){
-		return Integer.parseInt(this.attributes.get(4));
+		return Integer.parseInt(this.attributes.get(3));
 	}
 	
 	public void upgrade(){

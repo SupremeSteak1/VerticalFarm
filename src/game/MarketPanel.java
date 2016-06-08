@@ -25,6 +25,8 @@ public class MarketPanel implements GameObject{
 	private final int FERTILIZER_COST = 15;
 	
 	private Plant trendingPlant = new Plant();
+	
+	private Plant[] plantsAtMarket;
 	/*
 	 * 0 = water
 	 * 1 = fertilizer
@@ -37,6 +39,8 @@ public class MarketPanel implements GameObject{
 		//Removed plant constructor
 		money = 100;
 		
+		plantsAtMarket = new Plant[5];
+		
 		resources = new ArrayList<>();
 		
 		resourceCosts = new ArrayList<>();
@@ -48,6 +52,9 @@ public class MarketPanel implements GameObject{
 		recentlySold = new ArrayList<>();
 		
 		assignTrendingPlant();
+		for(int i = 0; i < 5; i++){
+			plantsAtMarket[i] = Plant.loadPlant(new Random().nextInt(9) + 10);
+		}
 	}
 	
 	public boolean[][] distributeResources(){
@@ -116,18 +123,36 @@ public class MarketPanel implements GameObject{
 		toRender.add(new RenderableImage(imagePath, 10, 650, 1));
 		RenderableText trending = new RenderableText("Currently Trending Plant: " + trendingPlant.getName(), 710, 850);
 		toRender.add(trending);
+		toRender.addAll(renderPlantsAndPrices());
 		//TODO: Uncomment when implemented
 		//toRender.addAll(renderPlantsAndPrices());
 		return toRender;
 	}
 	
 	private ArrayList<Renderable> renderPlantsAndPrices(){
-		return null;
+		ArrayList<Renderable> toRender = new ArrayList<>();
+		for(int i = 0; i < 5; i++){
+			//Change the above line as more plants get added
+			toRender.add(new RenderableText(plantsAtMarket[i].getName(), (i+1)*90,710));
+			toRender.add(new RenderableText(getSellingPrice(plantsAtMarket[i]) + "", (i+1)*90, 730));
+		}
+		return toRender;
+	}
+	
+	public void assignPlantsAtMarket(ArrayList<Plant> plants){
+		for(int i = 0; i < 5; i++){
+			plantsAtMarket[i] = plants.get(i);
+		}
 	}
 
 	@Override
 	public void update() {
 		assignTrendingPlant();
+		int randomTemp = new Random().nextInt(1000);
+		if(randomTemp==420){
+			plantsAtMarket[new Random().nextInt(5)] = Plant.loadPlant(new Random().nextInt(9) + 10);
+			//Change the above when more plants are added
+		}
 	}
 	
 	private void assignTrendingPlant(){
@@ -139,7 +164,7 @@ public class MarketPanel implements GameObject{
 	
 	private ArrayList<String> getImagePathsFromPlants(){
 		ArrayList<String> paths = new ArrayList<>();
-		for(int i = 0; i < 20; i++){
+		for(int i = 9; i < 20; i++){
 			try{
 				paths.add(Plant.loadPlant(i).getImagePath());
 			}catch(Exception e){
