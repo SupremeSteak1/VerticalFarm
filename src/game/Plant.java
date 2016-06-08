@@ -80,12 +80,15 @@ public class Plant {
 				} else {
 					String[] resources = line[i].split(":");
 					for(int c = 0; c < resources.length; c++){
+						//System.out.println(resources[c].split(",")[0].toUpperCase());
+						//System.out.println(Integer.parseInt(resources[c].split(",")[1]));
 						Resource needed = new Resource(Resource.resourceTypes.valueOf(resources[c].split(",")[0].toUpperCase()),Integer.parseInt(resources[c].split(",")[1]));
 						res.add(needed);
 					}
 				}
 			}
 			//System.out.println(attributes.get(1));
+			//System.out.println(res.toString());
 			plant = new Plant(line[line.length-1],attributes, res);
 			return plant;
 		} catch (FileNotFoundException e) {
@@ -172,7 +175,7 @@ public class Plant {
 	/**
 	 * Grows the plant
 	 */
-	public void grow(){
+	public void grow() {
 		if(growthLevel < getGrowthStages())
 			growthLevel++;
 	}

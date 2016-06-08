@@ -35,7 +35,7 @@ public class Tile implements Renderable {
 		this.x = x;
 		this.y = y;
 		setPlant(p);
-		hasResources =false;
+		hasResources = false;
 	}
 	
 	public String getImagePath() {
@@ -43,10 +43,11 @@ public class Tile implements Renderable {
 	}
 	
 	public void update() {
-		if(hasResources){
+		if(hasResources) {
+			System.out.println("Getting HERE");
 			int randomTemp = new Random().nextInt(50);
 			if(randomTemp == 42){
-				//TODO: Maybe have each plant have a growth speed that affects this
+				System.out.println("Plant has grown");
 				plant.grow();
 			}
 		}

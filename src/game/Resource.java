@@ -33,4 +33,8 @@ public class Resource {
 		amount-=a;
 	}
 	
+	public String toString() {
+		return "Resource[type:"+type+",amount:"+amount+"]";
+	}
+	
 }

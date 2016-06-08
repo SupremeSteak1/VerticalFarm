@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -36,6 +37,8 @@ public class MarketPanel implements GameObject{
 	
 	private static Plant trendingPlant = Plant.loadPlant(0);
 	
+	private static double[] modify;
+	
 	private Plant[] plantsAtMarket;
 	/*
 	 * 0 = water
@@ -51,7 +54,9 @@ public class MarketPanel implements GameObject{
 		
 		plantsAtMarket = new Plant[5];
 		
-		resources = new ArrayList<>();
+		resources = new ArrayList<Resource>();
+		resources.add(new Resource(Resource.resourceTypes.WATER,100));
+		resources.add(new Resource(Resource.resourceTypes.FERT,100));
 		
 		resourceCosts = new ArrayList<>();
 		resourceCosts.add(WATER_COST);
@@ -67,6 +72,11 @@ public class MarketPanel implements GameObject{
 		for(int i = 0; i < 5; i++){
 			plantsAtMarket[i] = Plant.loadPlant(new Random().nextInt(9) + 10);
 		}
+		
+		modify = new double[10];
+		for(int i = 0; i < modify.length; i++) {
+			modify[i] = 1;
+		}
 	}
 	
 	/**
@@ -75,25 +85,28 @@ public class MarketPanel implements GameObject{
 	 */
 	public boolean[][] distributeResources(){
 		boolean[][] distributed = new boolean[farm.getTiles().length][farm.getTiles()[0].length];
-		int x = 0;
-		int y = 0;
-		for(Tile[] a : farm.getTiles()){
-			for(Tile t : a){
+		for(int x = 0; x < farm.getTiles().length; x++) {
+			for(int y = 0; y < farm.getTiles()[0].length; y++) {
+				Tile t = farm.getTiles()[x][y];
 				ArrayList<Resource> required = t.getPlant().getNeededResources();
 				for(Resource r : required){
 					for(Resource b : resources){
-						if(b.getType().equals(r.getType()) && b.getAmount() >= r.getAmount()){
-							b.removeResource(r.getAmount());
-							distributed[x][y] = true;
-						}else{
-							distributed[x][y] = false;
+						if(x < distributed.length && y < distributed[0].length) {
+							if(b.getType().equals(r.getType()) && b.getAmount() >= r.getAmount()){
+								b.removeResource(r.getAmount());
+								distributed[x][y] = true;
+								//System.out.println("TRUE");
+							} else {
+								//System.out.println("B:"+b.getType());
+								//System.out.println("R:"+r.getType());
+								System.out.println(r.toString());
+								distributed[x][y] = false;
+								//System.out.println(y+(x*5));
+							}
 						}
-						
 					}
 				}
-				y++;
 			}
-			x++;
 		}
 		return distributed;
 	}
@@ -119,6 +132,7 @@ public class MarketPanel implements GameObject{
 	 * @param p the plant to get the price of
 	 * @return the selling price of the plant
 	 */
+	/*
 	public static int getSellingPrice(Plant p){
 		double marketFactor = 1.0;
 		for(Plant soldPlants : recentlySold){
@@ -128,6 +142,25 @@ public class MarketPanel implements GameObject{
 		}
 		if(p.equals(trendingPlant)) marketFactor*=2;
 		return (int) Math.round(p.getSellPrice() * marketFactor); 
+	}
+	*/
+	
+	//Alternate
+	public static double getSellingPrice(Plant p) {
+		DecimalFormat df = new DecimalFormat("#,###,##0.00");
+		return Double.parseDouble(df.format(p.getSellPrice()*modify[((int) p.getSellPrice())%modify.length]).replaceAll(",", ""));
+	}
+	
+	public static void changePriceModify() {
+		for(int i = 0; i < modify.length; i++) {
+			modify[i] = new Random().nextFloat()/2.0+0.75;
+			//System.out.println("modify"+i+"="+modify[i]);
+			if(modify[i] < 0.5) {
+				modify[i] = 0.5;
+			} else if(modify[i] > 1.5) {
+				modify[i] = 1.5;
+			}
+		}
 	}
 	
 	/**
@@ -166,6 +199,11 @@ public class MarketPanel implements GameObject{
 		RenderableText trending = new RenderableText("Currently Trending Plant: " + trendingPlant.getName(), 710, 850);
 		RenderableText buyLabel = new RenderableText("Buy Price:", 32, 730);
 		RenderableText money = new RenderableText(""+getMoney(), 720, 720);
+		for(int i = 0; i < resources.size(); i++) {
+			Resource r = resources.get(i);
+			RenderableText resource = new RenderableText(""+r.getType()+" : "+r.getAmount(), 32, 750+(20*i));
+			toRender.add(resource);
+		}
 		toRender.add(trending);
 		toRender.add(buyLabel);
 		toRender.add(money);

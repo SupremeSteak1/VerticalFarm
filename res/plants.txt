@@ -1,11 +1,11 @@
-0;Empty Tile;not_set,0;0;0;0;No plant is planted here...;res/transparent.png
-9;Carrot;water,6:fert,3;4;3;882;Do you even carrot all?;res/carrot.png
-10;Basil;water,10:fert,10;8;9;852;The king of herbs;res/basil.png
-11;Mango;water,14:fert,12;10;19;1358;FIRST is about mangoes;res/Mango.png
-12;Watermelon;water,18:fert,15;5;4;1810;Great for fighting zombies;res/watermelon.png
-13;Pumpkin;water,16:fert,9;3;8;1005;Can be spooky, but good for pie;res/pumpkin.png
-14;Tomato;water,5:fert,19;1;22;512;Pronounce it however you want;res/tomato.png
-15;Codeberries;water,21:fert,9;9;19;2281;Delicious traces of stack;res/codefruit.png
-16;Flaming Carrot;water,10:fert,15;3;8;1000;I'm not entirely sure how this one works;res/flaming_carrot.png
-17;Gusberries;water,10:fert,10;5;10;1500;honk honk delete photograph;res/TestPlont.png
-18;Lucky's Mealworms;water,5:fert,20;5;15;1200;Is this even a plant?;res/TestPlant.png
+0;Empty Tile;NOT_SET,0;0;0;0;No plant is planted here...;res/transparent.png
+9;Carrot;WATER,6:FERT,3;4;3;882;Do you even carrot all?;res/carrot.png
+10;Basil;WATER,10:FERT,10;8;9;852;The king of herbs;res/basil.png
+11;Mango;WATER,14:FERT,12;10;19;1358;FIRST is about mangoes;res/Mango.png
+12;Watermelon;WATER,18:FERT,15;5;4;1810;Great for fighting zombies;res/watermelon.png
+13;Pumpkin;WATER,16:FERT,9;3;8;1005;Can be spooky, but good for pie;res/pumpkin.png
+14;Tomato;WATER,5:FERT,19;1;22;512;Pronounce it however you want;res/tomato.png
+15;Codeberries;WATER,21:FERT,9;9;19;2281;Delicious traces of stack;res/codefruit.png
+16;Flaming Carrot;WATER,10:FERT,15;3;8;1000;I'm not entirely sure how this one works;res/flaming_carrot.png
+17;Gusberries;WATER,10:FERT,10;5;10;1500;honk honk delete photograph;res/TestPlont.png
+18;Lucky's Mealworms;WATER,5:FERT,20;5;15;1200;Is this even a plant?;res/TestPlant.png
