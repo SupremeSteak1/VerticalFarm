@@ -5,6 +5,6 @@
 13;Pumpkin;water,16:fert,9;3;8;1005;Can be spooky, but good for pie;res/pumpkin.png
 14;Tomato;water,5:fert,19;1;22;512;Pronounce it however you want;res/tomato.png
 15;Codeberries;water,21:fert,9;9;19;2281;Delicious traces of stack;res/codefruit.png
-16;Flaming Carrot;water,10:fert,15;3;8;1000;I'm not entirely sure how this one worls;res/flaming_carrot.png
+16;Flaming Carrot;water,10:fert,15;3;8;1000;I'm not entirely sure how this one works;res/flaming_carrot.png
 17;Gusberries;water,10:fert,10;5;10;1500;honk honk delete photograph;res/TestPlont.png
 18;Lucky's Mealworms;water,5:fert,20;5;15;1200;Is this even a plant?;res/TestPlant.png

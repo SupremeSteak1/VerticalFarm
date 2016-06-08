@@ -22,13 +22,27 @@ public class InfoPanel implements GameObject {
 		RenderableImage tileRender = new RenderableImage(tile.getImagePath(), 655, 356, 1);
 		RenderableImage plantRender = new RenderableImage(tile.getPlant().getImagePath(), 655, 356, 1);
 		RenderableText name = new RenderableText(tile.getPlant().getAttributes().get(1), 660, 48);
-		RenderableText description = new RenderableText(tile.getPlant().getDescription(), 800, 353);
+		//RenderableText description = new RenderableText(tile.getPlant().getDescription(), 800, 353);
 		ArrayList<Renderable> toRender = new ArrayList<Renderable>();
 		toRender.add(image);
 		toRender.add(tileRender);
 		toRender.add(plantRender);
 		toRender.add(name);
-		toRender.add(description);
+		//toRender.add(description);
+		toRender.addAll(renderLongText(25, tile.getPlant().getDescription(), 800, 353));
+		return toRender;
+	}
+	
+	private ArrayList<Renderable> renderLongText(int width, String text, int x, int y){
+		int lines = (int) Math.ceil((double) text.length() / (double) width);
+		ArrayList<Renderable> toRender = new ArrayList<>();
+		for(int i = 0; i < lines; i++){
+			try{
+			toRender.add(new RenderableText(text.substring(i*width,(i+1)*width), x, y + i*10));
+			}catch(Exception e){
+				toRender.add(new RenderableText(text.substring(i*width,text.length()), x, y + i*10));
+			}
+		}
 		return toRender;
 	}
 	

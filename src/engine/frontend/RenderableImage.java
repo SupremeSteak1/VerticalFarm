@@ -1,5 +1,6 @@
 package engine.frontend;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -39,6 +40,9 @@ public class RenderableImage implements Renderable {
 	 * Render the given image on the screen using the given graphics object
 	 */
 	public void render(Graphics2D g2d) {
+		RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+		rh.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		g2d.setRenderingHints(rh);
 		g2d.drawImage(image, x, y, null);
 	}
 	
