@@ -40,7 +40,7 @@ public class MarketPanel implements GameObject{
 		this.farm = farm;
 		
 		//Removed plant constructor
-		money = 100;
+		money = 2000;
 		
 		plantsAtMarket = new Plant[5];
 		
@@ -141,7 +141,7 @@ public class MarketPanel implements GameObject{
 		for(int i = 0; i < 5; i++){
 			//Change the above line as more plants get added
 			toRender.add(new RenderableText(plantsAtMarket[i].getName(), (i+1)*90,710));
-			toRender.add(new RenderableText(getSellingPrice(plantsAtMarket[i]) + "", (i+1)*90, 730));
+			toRender.add(new RenderableText((int)(getSellingPrice(plantsAtMarket[i]) *.85) + "", (i+1)*90, 730));
 		}
 		return toRender;
 	}
@@ -173,7 +173,7 @@ public class MarketPanel implements GameObject{
 		boolean running = true;
 		while(running){
 			Point p = Mouse.getRecentClickLocationOnScreen();
-			if(new Rectangle(640,640).contains(p)){
+			if(new Rectangle(1,1,640,640).contains(p)){
 				farm.getTiles()[p.x/128][p.y/128].setPlant(plant);
 				running = false;
 			}

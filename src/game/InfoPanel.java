@@ -69,8 +69,8 @@ public class InfoPanel implements GameObject {
 
 	@Override
 	public void update() {
-		if(new Rectangle(90, 730, 80, 50).contains(Mouse.getRecentClickLocationOnScreen())) {
-			
+		if(new Rectangle(661, 512, 700, 538).contains(Mouse.getRecentClickLocationOnScreen()) && !tile.getPlant().getName().equals("Empty Tile")) {
+			MarketPanel.sell(tile);
 		}
 	}
 	

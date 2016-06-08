@@ -76,7 +76,7 @@ public class Plant {
 				line = scan.nextLine().split(";");
 				//System.out.println(line[0] + " AND " + plantID);
 				if(line[0].equals(""+plantID)) {
-					System.out.println("MATCH");
+					//System.out.println("MATCH");
 					searching = false;
 				}
 				}catch(NoSuchElementException e){}
