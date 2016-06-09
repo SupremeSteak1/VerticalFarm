@@ -1,9 +1,9 @@
 package game;
 
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import other.Utilities;
 import engine.backend.GameObject;
 import engine.frontend.Renderable;
 import engine.frontend.RenderableImage;
@@ -25,14 +25,16 @@ public class InfoPanel implements GameObject {
 		RenderableImage plantRender = new RenderableImage(tile.getPlant().getImagePath(), 655, 356, 1);
 		RenderableText name = new RenderableText(tile.getPlant().getAttributes().get(1), 660, 48);
 		RenderableText notice = new RenderableText(""+MarketPanel.getSellingPrice(tile.getPlant()), 660, 575);
+		RenderableText growth = new RenderableText("Growth stage "+tile.getPlant().getGrowthLevel()+"/"+tile.getPlant().getGrowthStages(),750,102);
 		ArrayList<Renderable> toRender = new ArrayList<Renderable>();
 		toRender.add(image);
 		toRender.add(tileRender);
 		toRender.add(plantRender);
 		toRender.add(name);
 		toRender.add(notice);
+		toRender.add(growth);
 		toRender.addAll(renderResources());
-		toRender.addAll(renderLongText(25, tile.getPlant().getDescription(), 800, 353));
+		toRender.addAll(Utilities.renderLongText(25, tile.getPlant().getDescription(), 800, 353));
 		return toRender;
 	}
 	
@@ -42,19 +44,6 @@ public class InfoPanel implements GameObject {
 		for(int i = 0; i < res.size(); i++){
 			Resource r = res.get(i);
 			toRender.add(new RenderableText(r.getType().name() + ": " + r.getAmount(), 650, 125 + i*15));
-		}
-		return toRender;
-	}
-	
-	private ArrayList<Renderable> renderLongText(int width, String text, int x, int y){
-		int lines = (int) Math.ceil((double) text.length() / (double) width);
-		ArrayList<Renderable> toRender = new ArrayList<>();
-		for(int i = 0; i < lines; i++){
-			try{
-			toRender.add(new RenderableText(text.substring(i*width,(i+1)*width), x, y + i*10));
-			}catch(Exception e){
-				toRender.add(new RenderableText(text.substring(i*width,text.length()), x, y + i*10));
-			}
 		}
 		return toRender;
 	}
@@ -69,7 +58,7 @@ public class InfoPanel implements GameObject {
 
 	@Override
 	public void update() {
-		if(new Rectangle(661, 512, 700, 538).contains(Mouse.getRecentClickLocationOnScreen()) && !tile.getPlant().getName().equals("Empty Tile")) {
+		if(new Rectangle(664, 528, 701, 552).contains(Mouse.getRecentClickLocationOnScreen()) && !tile.getPlant().isEqualTo(Plant.loadPlant(0))) {
 			MarketPanel.sell(tile);
 		}
 	}

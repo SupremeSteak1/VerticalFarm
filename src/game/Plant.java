@@ -29,25 +29,12 @@ public class Plant {
 	 * 6 = Image File Path
 	 */
 	
-	
-	public Plant() {
-		/*
-		attributes = new ArrayList<String>();
-		attributes.add("0");
-		attributes.add("Test plont");
-		attributes.add("0");
-		attributes.add("0");
-		attributes.add("0");
-		attributes.add("0");
-		attributes.add("0");
-		neededResources = new ArrayList<Resource>();
-		upgradeLevel = 0;
-		growthLevel = 0;
-		file = new File("res/plants.txt");
-		*/
-		//loadPlant();
-	}
-	
+	/**
+	 * Constructs a plant with an image path, an ArrayList<String> of attributes, and an ArrayList<Resource> of resources needed
+	 * @param imagePath the path to the plant's image
+	 * @param attributes the attributes the plant has
+	 * @param res the resources the plant needs
+	 */
 	public Plant(String imagePath, ArrayList<String> attributes, ArrayList<Resource> res) {
 		this.imagePath = imagePath;
 		this.attributes = new ArrayList<String>();
@@ -64,6 +51,11 @@ public class Plant {
 		growthLevel = 0;
 	}
 	
+	/**
+	 * Loads a plant from an ID numbers
+	 * @param plantID the ID number
+	 * @return the Plant that was created
+	 */
 	public static Plant loadPlant(int plantID){
 		Plant plant;
 		ArrayList<Resource> res = new ArrayList<>();
@@ -88,12 +80,15 @@ public class Plant {
 				} else {
 					String[] resources = line[i].split(":");
 					for(int c = 0; c < resources.length; c++){
+						//System.out.println(resources[c].split(",")[0].toUpperCase());
+						//System.out.println(Integer.parseInt(resources[c].split(",")[1]));
 						Resource needed = new Resource(Resource.resourceTypes.valueOf(resources[c].split(",")[0].toUpperCase()),Integer.parseInt(resources[c].split(",")[1]));
 						res.add(needed);
 					}
 				}
 			}
 			//System.out.println(attributes.get(1));
+			//System.out.println(res.toString());
 			plant = new Plant(line[line.length-1],attributes, res);
 			return plant;
 		} catch (FileNotFoundException e) {
@@ -103,30 +98,57 @@ public class Plant {
 		return null;
 	}
 	
+	/**
+	 * Gets the file path to the plant's image
+	 * @return the file path to the plant's image
+	 */
 	public String getImagePath() {
 		return imagePath;
 	}
 	
+	/**
+	 * Gets the name of the plant
+	 * @return the name of the plant
+	 */
 	public String getName(){
 		return attributes.get(1);
 	}
 	
+	/**
+	 * Gets the needed resource for the plant to grow
+	 * @return an ArrayList<Resources> of the resources needed for the plant to grow
+	 */
 	public ArrayList<Resource> getNeededResources(){
 		return neededResources;
 	}
 	
+	/**
+	 * Sets the plant's tile
+	 * @param t the tile to set to
+	 */
 	public void setTile(Tile t){
 		this.tile = t;
 	}
 	
+	/**
+	 * Gets the buy price for the plant
+	 * @return the buy price for the plant
+	 */
 	public int getBuyPrice(){
 		return Integer.parseInt(this.attributes.get(2));
 	}
 	
+	/**
+	 * Gets the sell price for the plant
+	 * @return the sell price for the plant
+	 */
 	public int getSellPrice(){
 		return Integer.parseInt(this.attributes.get(3));
 	}
 	
+	/**
+	 * Upgrades the plant's level by one
+	 */
 	public void upgrade(){
 		this.upgradeLevel++;
 		attributes.set(3, attributes.get(2) + Math.log(Double.parseDouble(attributes.get(2)) + 2));
@@ -134,27 +156,75 @@ public class Plant {
 		//attributes.set(6, attributes.get(6) + Math.log(Double.parseDouble(attributes.get(6)) + 2));
 	}
 	
+	/**
+	 * Gets the plant's upgrade level
+	 * @return the plant's upgrade level
+	 */
 	public int getUpgradeLevel() {
 		return upgradeLevel;
 	}
 	
+	/**
+	 * Sets the plant's upgrade level
+	 * @param upgradeLevel the new upgradeLevel
+	 */
 	public void setUpgradeLevel(int upgradeLevel) {
 		this.upgradeLevel = upgradeLevel;
 	}
 	
-	public void grow(){
-		if(growthLevel>=Integer.parseInt(attributes.get(2)))
-		growthLevel++;
+	/**
+	 * Grows the plant
+	 */
+	public void grow() {
+		if(growthLevel < getGrowthStages())
+			growthLevel++;
 	}
 	
+	/**
+	 * Gets how many growth stages the plant has
+	 * @return the number of growth stages
+	 */
+	public int getGrowthStages(){
+		return Integer.parseInt(this.attributes.get(2));
+	}
+	
+	/**
+	 * Gets the plant's current growth level
+	 * @return the current growth level
+	 */
+	public int getGrowthLevel(){
+		return this.growthLevel;
+	}
+	
+	/**
+	 * Checks if the plant can be harvested yet
+	 * @return if the plant can be harvested
+	 */
 	public boolean canHarvest() {
 		return growthLevel >= Integer.parseInt(attributes.get(2));
 	}
 	
+	/**
+	 * Gets the attributes of the plant
+	 * @return the attributes of the plant
+	 */
 	public ArrayList<String> getAttributes() {
 		return attributes;
 	}
 	
+	/**
+	 * Checks if this plant is equal to another plant
+	 * @param other the other plant
+	 * @return if the plants are equal
+	 */
+	public boolean isEqualTo(Plant other){
+		return this.attributes.get(0).equals(other.getAttributes().get(0));
+	}
+	
+	/**
+	 * Gets the description of the plant
+	 * @return the plant's description
+	 */
 	public String getDescription() {
 		return attributes.get(4);
 	}
